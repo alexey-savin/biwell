@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiWell.Test", "BiWell.Test\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiWell.CheckOut.Console", "BiWell.CheckOut.Console\BiWell.CheckOut.Console.csproj", "{B18A2CFD-9A5F-4EE2-BC41-B4B45EF73351}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiWell.OrderAPI.Console", "BiWell.OrderAPI.Console\BiWell.OrderAPI.Console.csproj", "{4268D3BF-C087-4572-BC0C-8EDA7A705DC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiWell.Payment", "BiWell.Payment\BiWell.Payment.csproj", "{E7EE2C37-F586-44AD-A507-A9CCBD9FF8D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{B18A2CFD-9A5F-4EE2-BC41-B4B45EF73351}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B18A2CFD-9A5F-4EE2-BC41-B4B45EF73351}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B18A2CFD-9A5F-4EE2-BC41-B4B45EF73351}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4268D3BF-C087-4572-BC0C-8EDA7A705DC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4268D3BF-C087-4572-BC0C-8EDA7A705DC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4268D3BF-C087-4572-BC0C-8EDA7A705DC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4268D3BF-C087-4572-BC0C-8EDA7A705DC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7EE2C37-F586-44AD-A507-A9CCBD9FF8D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7EE2C37-F586-44AD-A507-A9CCBD9FF8D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7EE2C37-F586-44AD-A507-A9CCBD9FF8D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7EE2C37-F586-44AD-A507-A9CCBD9FF8D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
