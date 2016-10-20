@@ -10,12 +10,13 @@
         <p>Введите данные заказа и нажмите кнопку 'Провести оплату'. Вы будете перенаправлены на страницу платежного шлюза</p>
     </div>
     <div class="panel-body">
-        @using (Html.BeginForm("Payment", "Home", FormMethod.Get))
+        @using (Html.BeginForm("Payment", "Home"))
         {
             @Html.ValidationSummary();
 
             <h3>Данные заказа</h3>
-            foreach (var property in ViewData.ModelMetadata.Properties)
+            foreach (var property in ViewData.ModelMetadata.Properties
+                .Where( p => p.DisplayName != null))
             {
                 <div class="form-group">
                     <label>@(property.DisplayName ?? property.PropertyName)</label>

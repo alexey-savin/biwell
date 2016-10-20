@@ -1,5 +1,4 @@
 ﻿using BiWell.Payment.Entities;
-using System.Globalization;
 using System.Web.Mvc;
 
 namespace BiWell.Payment.Controllers
@@ -11,7 +10,6 @@ namespace BiWell.Payment.Controllers
             return View(new PaymentDetails());
         }
 
-        [HttpGet]
         public ActionResult Payment(PaymentDetails paymentDetails)
         {
             if (paymentDetails.Amount <= 0)
@@ -21,8 +19,7 @@ namespace BiWell.Payment.Controllers
 
             if (ModelState.IsValid)
             {
-                string formattedAmount = string.Format(CultureInfo.InvariantCulture, "{0:0.00}", paymentDetails.Amount);
-                return Redirect($"http://payment.biwell.ru?orderId={paymentDetails.OrderId}&amount={formattedAmount}");
+                return View("Payment", paymentDetails);
             }
             else
             {

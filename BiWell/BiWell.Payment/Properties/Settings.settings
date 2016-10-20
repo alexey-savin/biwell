@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BiWell.Payment.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MNT_ID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">14992443</Value>
+    </Setting>
+    <Setting Name="MNT_CURRENCY_CODE" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">RUB</Value>
+    </Setting>
+    <Setting Name="MNT_WIDGET_HOST" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://demo.moneta.ru/assistant.widget</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

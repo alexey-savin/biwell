@@ -1,0 +1,15 @@
+﻿@model BiWell.Payment.Entities.PaymentDetails
+
+@{
+    ViewBag.Title = "BiWell Payment";
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h2>@string.Format("Оплата заказа '{0}' на сумму {1:C}", Model.OrderId, Model.Amount)</h2>
+        <p>Выберите удобный Вам способ оплаты и следуйте инструкциям на экране</p>
+    </div>
+    <div class="panel-body">
+        <iframe id="moneta-widget" src="@Model.WidgetUrl" style="margin-top:5px; width:100%; height:700px; border: none;">No IFRAME!</iframe>
+    </div>
+</div>
