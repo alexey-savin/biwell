@@ -1,0 +1,31 @@
+﻿@model BiWell.Payment.Entities.PaymentDetails
+
+@{
+    ViewBag.Title = "BiWell Payment";
+}
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h2>Оплатить заказ сейчас</h2>
+        <p>Введите данные заказа и нажмите кнопку 'Провести оплату'. Вы будете перенаправлены на страницу платежного шлюза</p>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("Payment", "Home", FormMethod.Get))
+        {
+            @Html.ValidationSummary();
+
+            <h3>Данные заказа</h3>
+            foreach (var property in ViewData.ModelMetadata.Properties)
+            {
+                <div class="form-group">
+                    <label>@(property.DisplayName ?? property.PropertyName)</label>
+                    @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+                </div>
+            }
+
+            <div class="text-center">
+                <input class="btn btn-primary" type="submit" value="Провести оплату" />
+            </div>
+        }
+    </div>
+</div>
