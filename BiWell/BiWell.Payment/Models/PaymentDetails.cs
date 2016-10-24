@@ -1,9 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Text;
 
-namespace BiWell.Payment.Entities
+namespace BiWell.Payment.Models
 {
     public class PaymentDetails
     {

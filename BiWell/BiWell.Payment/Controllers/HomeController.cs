@@ -1,4 +1,4 @@
-﻿using BiWell.Payment.Entities;
+﻿using BiWell.Payment.Models;
 using System.Web.Mvc;
 
 namespace BiWell.Payment.Controllers

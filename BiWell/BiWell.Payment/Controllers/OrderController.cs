@@ -1,4 +1,4 @@
-﻿using BiWell.Payment.Entities;
+﻿using BiWell.Payment.Models;
 using System;
 using System.Globalization;
 using System.Web.Mvc;
