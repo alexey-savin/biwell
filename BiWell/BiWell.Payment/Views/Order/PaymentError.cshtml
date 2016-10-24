@@ -1,0 +1,14 @@
+﻿@model System.Exception
+
+@{
+    ViewBag.Title = "BiWell Payment";
+}
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h2>Что-то пошло не так</h2>
+    </div>
+    <div class="panel-body">
+        <p>@Model.Message</p>
+    </div>
+</div>

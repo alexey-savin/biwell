@@ -10,9 +10,7 @@ namespace BiWell.Payment.Entities
         [Required(ErrorMessage = "Номер заказа должен быть указан")]
         [Display(Name = "Номер заказа")]
         public string OrderId { get; set; }
-
-        [Required(ErrorMessage = "Сумма платежа должна быть указана")]
-        [Display(Name = "Сумма платежа")]
+        
         public decimal Amount { get; set; }
 
         public string FormattedAmount => string.Format(CultureInfo.InvariantCulture, "{0:0.00}", Amount);

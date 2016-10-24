@@ -49,5 +49,23 @@ namespace BiWell.Payment.Properties {
                 return ((string)(this["MNT_WIDGET_HOST"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("AlexeyInkuev")]
+        public string ByDesignApiUser {
+            get {
+                return ((string)(this["ByDesignApiUser"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Moll35$#")]
+        public string ByDesignApiPassword {
+            get {
+                return ((string)(this["ByDesignApiPassword"]));
+            }
+        }
     }
 }
