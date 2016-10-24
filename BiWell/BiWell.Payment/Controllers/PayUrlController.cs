@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using BiWell.Payment.Models;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Web.Http;
@@ -8,7 +9,7 @@ namespace BiWell.Payment.Controllers
     public class PayUrlController : ApiController
     {
         [HttpPost]
-        public HttpResponseMessage PaymentNotification()
+        public HttpResponseMessage PaymentNotification(PaymentNotificationData data)
         {
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             response.Content = new StringContent("SUCCESS", Encoding.UTF8, "text/plain");
