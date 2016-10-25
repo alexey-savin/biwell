@@ -204,6 +204,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\PayUrlController.cs" />
+    <Compile Include="Helpers\ByDesignAPIHelper.cs" />
     <Compile Include="Models\PaymentDetails.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

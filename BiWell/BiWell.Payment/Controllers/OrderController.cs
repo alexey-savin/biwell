@@ -1,4 +1,5 @@
 ﻿using BiWell.Payment.Models;
+using BiWell.Payment.Helpers;
 using System;
 using System.Globalization;
 using System.Web.Mvc;
@@ -22,17 +23,13 @@ namespace BiWell.Payment.Controllers
                     throw new InvalidCastException("Некорректный формат номера заказа");
                 }
 
-                ByDesignOrderAPI.OrderAPISoap apiClient = new ByDesignOrderAPI.OrderAPISoapClient();
-                ByDesignOrderAPI.Credentials cred = new ByDesignOrderAPI.Credentials();
-                cred.Username = Properties.Settings.Default.ByDesignApiUser;
-                cred.Password = Properties.Settings.Default.ByDesignApiPassword;
+                var apiClient = ByDesignAPIHelper.CreateAPIClient();
 
-                var response = apiClient.GetTotals(cred, orderId);
+                var response = apiClient.GetTotals(apiClient.CreateCredentials(), orderId);
                 if (response.Success == 0)
                 {
                     throw new InvalidOperationException(response.Message);
                 }
-
 
                 paymentDetails.Amount = decimal.Parse(response.BalanceDue, CultureInfo.InvariantCulture);
             }
