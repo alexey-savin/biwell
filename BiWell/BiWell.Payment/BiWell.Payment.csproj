@@ -229,7 +229,10 @@
     <Compile Include="Helpers\ByDesignAPIHelper.cs" />
     <Compile Include="Implementation\ByDesignOrderProcessor.cs" />
     <Compile Include="Implementation\DoNothingProcessor.cs" />
+    <Compile Include="Implementation\SimpleExceptionLogger.cs" />
+    <Compile Include="Interfaces\IExceptionLogger.cs" />
     <Compile Include="Interfaces\IPaymentNotificationProcessor.cs" />
+    <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\PaymentDetails.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

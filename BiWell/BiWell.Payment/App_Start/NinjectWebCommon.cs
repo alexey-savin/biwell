@@ -63,7 +63,8 @@ namespace BiWell.Payment.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IPaymentNotificationProcessor>().To<DoNothingProcessor>();
+            kernel.Bind<IPaymentNotificationProcessor>().To<ByDesignOrderProcessor>();
+            kernel.Bind<IExceptionLogger>().To<SimpleExceptionLogger>();
         }        
     }
 }

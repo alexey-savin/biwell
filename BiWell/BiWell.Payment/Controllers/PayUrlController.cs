@@ -24,11 +24,11 @@ namespace BiWell.Payment.Controllers
             if (data != null && !string.IsNullOrEmpty(data.mnt_id) && !string.IsNullOrEmpty(data.mnt_transaction_id))
             {
                 content = "SUCCESS";
-            }
 
-            if (_processor != null)
-            {
-                _processor.ProcessNotification(data);
+                if (_processor != null)
+                {
+                    _processor.ProcessNotification(data);
+                }
             }
 
             var response = new HttpResponseMessage(HttpStatusCode.OK);
