@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace BiWell.Payment.Helpers
+﻿namespace BiWell.Payment.Helpers
 {
     public static class ByDesignAPIHelper
     {
-        public static ByDesignOrderAPI.Credentials CreateCredentials(this ByDesignOrderAPI.OrderAPISoap soapClient)
+        public static ByDesignOrderAPI.Credentials CreateCredentials(this ByDesignOrderAPI.OrderAPISoap soap)
         {
             ByDesignOrderAPI.Credentials cred = new ByDesignOrderAPI.Credentials();
             cred.Username = Properties.Settings.Default.ByDesignApiUser;
