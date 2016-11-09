@@ -1,12 +1,5 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BiWell.CheckOut.Console
 {
@@ -38,31 +31,83 @@ namespace BiWell.CheckOut.Console
             if (isValidSession)
             {
                 request = new RestRequest();
-                request.Method = Method.GET;
-                request.Resource = "service/checkout/getPlaceByPostalCode";
+                request.Method = Method.POST;
+                request.Resource = "service/order/create";
 
-                System.Console.Write("Index: ");
-                string index = System.Console.ReadLine();
-
-                request.AddParameter("ticket", tr.ticket);
-                request.AddParameter("postIndex", index);
-
-                var r = client.Execute<SuggestionResponse>(request);
-                SuggestionResponse sr = r.Data;
-
-                if (!sr.error)
+                CreateOrderRequest coReq = new CreateOrderRequest();
+                coReq.apiKey = Properties.Settings.Default.ApiKey;
+                coReq.order = new OrderRequest
                 {
-                    System.Console.WriteLine("Address = " + sr.fullName);
+                    shopOrderId = "test-001",
+                    forcedCost = 0,
+                    forceLabelPrinting = false,
+                    paymentMethod = "cash",
+                    comment = "this is a test order",
+                    goods = new ProductRequest[]
+                    {
+                        new ProductRequest
+                        {
+                            name = "Teapot Silver",
+                            code = "13137",
+                            quantity = 1,
+                            assessedCost = 100.23M,
+                            payCost = 100.21M,
+                            weight = 0.5M
+                        },
+                        new ProductRequest
+                        {
+                            name = "Gold Pot",
+                            code = "109313",
+                            quantity = 1,
+                            assessedCost = 101.23M,
+                            payCost = 101.21M,
+                            weight = 0.5M
+                        }
+                    }
+                };
+                coReq.delivery = new DeliveryRequest
+                {
+                    deliveryId = -1,
+                    placeFiasId = "53bcff9a-1b70-4492-9b3f-b128a7de0727",
+                    type = "pvz",
+                    addressPvz = "Moscow",
+                    cost = 10.0M,
+                    minTerm = 1,
+                    maxTerm = 3
+                };
+                coReq.user = new UserRequest
+                {
+                    fullname = "Получатель посылки",
+                    email = "sinnert1997@hotmail.com",
+                    phone = "+7(905)782-99-32"
+                };
+
+                request.AddJsonBody(coReq);
+
+                // debug
+                var json = JsonConvert.SerializeObject(coReq);
+                
+                var r = client.Execute<CreateOrderResponse>(request);
+                CreateOrderResponse coResp  = r.Data;
+
+                if (coResp == null)
+                {
+                    System.Console.WriteLine($"{r.StatusDescription}: {r.ErrorMessage}");
                 }
-                else
+                else 
                 {
-                    System.Console.WriteLine("Place by postal code error: " + sr.errorMessage);
+                    if (!coResp.error)
+                    {
+                        System.Console.WriteLine("Order was created = " + coResp.order.id);
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Create order error: " + coResp.errorMessage);
+                    }
                 }
             }
 
             System.Console.ReadKey();
         }
-
-         
     }
 }
