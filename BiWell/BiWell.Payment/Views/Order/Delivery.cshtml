@@ -1,0 +1,49 @@
+﻿@model BiWell.Payment.Models.DeliveryParameters
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <script src="http://platform.checkout.ru/cop/cop.js?ver=9.8"></script>
+    <script>
+		var copFormId = 'deliveryForm';
+    </script>
+</head>
+<body>
+    <div class="container"> 
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h2>Оформить заказ сейчас</h2>
+                <p>Нажмите кнопку 'Оформить заказ'</p>
+            </div>
+            <div class="panel-body">
+                <form id="deliveryForm">
+                    @Html.Hidden("ticket", Model.ticket)
+                    @Html.Hidden("var", Model.ver)
+                    @Html.Hidden("callbackURL", Model.callbackURL)
+
+                    @Html.TextBox("names[0]", "Чайник позолоченный")
+                    @Html.TextBox("codes[0]", "101765")
+                    @Html.TextBox("quantities[0]", "2")
+                    @Html.TextBox("costs[0]", "2.12")
+                    @Html.TextBox("paycosts[0]", "5.13")
+                    @Html.TextBox("weights[0]", "0.5")
+
+                    <div class="text-center">
+                        <input class="btn btn-primary" type="submit" value="Оформить заказ" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

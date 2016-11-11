@@ -68,6 +68,10 @@
       <HintPath>..\packages\Ninject.Web.WebApi.WebHost.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.WebHost.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -146,11 +150,20 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Service References\ByDesignOrderAPI\BiWell.Payment.ByDesignOrderAPI.CheckedOrderedItemForCustomerDIDWithinDateResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -232,8 +245,11 @@
     <Compile Include="Implementation\SimpleExceptionLogger.cs" />
     <Compile Include="Interfaces\IExceptionLogger.cs" />
     <Compile Include="Interfaces\IPaymentNotificationProcessor.cs" />
+    <Compile Include="Models\Checkout\Response.cs" />
+    <Compile Include="Models\Checkout\TicketResponse.cs" />
+    <Compile Include="Models\DeliveryParameters.cs" />
     <Compile Include="Models\OrderStatus.cs" />
-    <Compile Include="Models\PaymentDetails.cs" />
+    <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -261,7 +277,8 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Order\Payment.cshtml" />
     <None Include="Service References\ByDesignOrderAPI\OrderAPI.wsdl" />
-    <Content Include="Views\Order\PaymentError.cshtml" />
+    <Content Include="Views\Order\OrderError.cshtml" />
+    <Content Include="Views\Order\Delivery.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

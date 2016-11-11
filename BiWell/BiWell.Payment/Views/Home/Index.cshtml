@@ -1,4 +1,4 @@
-﻿@model BiWell.Payment.Models.PaymentDetails
+﻿@model BiWell.Payment.Models.OrderDetails
 
 @{
     ViewBag.Title = "BiWell Payment";
@@ -7,10 +7,10 @@
 <div class="panel panel-info">
     <div class="panel-heading">
         <h2>Оплатить заказ сейчас</h2>
-        <p>Введите данные заказа и нажмите кнопку 'Провести оплату'. Вы будете перенаправлены на страницу платежного шлюза</p>
+        <p>Введите номер заказа и нажмите кнопку 'Провести оплату'. Вы будете перенаправлены на страницу платежного шлюза</p>
     </div>
     <div class="panel-body">
-        @using (Html.BeginForm("Payment", "Order"))
+        @using (Html.BeginForm("Delivery", "Order"))
         {
             @Html.ValidationSummary();
 

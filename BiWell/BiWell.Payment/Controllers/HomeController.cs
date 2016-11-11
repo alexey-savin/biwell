@@ -7,7 +7,7 @@ namespace BiWell.Payment.Controllers
     {
         public ViewResult Index()
         {
-            return View(new PaymentDetails());
+            return View(new OrderDetails());
         }
     }
 }

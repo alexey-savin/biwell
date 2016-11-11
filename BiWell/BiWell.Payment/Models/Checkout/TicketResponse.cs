@@ -1,4 +1,4 @@
-﻿namespace BiWell.CheckOut.Console
+﻿namespace BiWell.Payment.Models.Checkout
 {
     public class TicketResponse : Response
     {
