@@ -247,7 +247,10 @@
     <Compile Include="Interfaces\IPaymentNotificationProcessor.cs" />
     <Compile Include="Models\Checkout\Response.cs" />
     <Compile Include="Models\Checkout\TicketResponse.cs" />
+    <Compile Include="Models\DeliveryAddress.cs" />
+    <Compile Include="Models\DeliveryItem.cs" />
     <Compile Include="Models\DeliveryParameters.cs" />
+    <Compile Include="Models\DeliveryPerson.cs" />
     <Compile Include="Models\OrderStatus.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Global.asax.cs">

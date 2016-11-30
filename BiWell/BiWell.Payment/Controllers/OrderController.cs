@@ -45,9 +45,6 @@ namespace BiWell.Payment.Controllers
 
         public ActionResult Delivery(OrderDetails orderDetails)
         {
-            // TODO
-            // Getting order details (order lines)
-
             DeliveryParameters deliveryParameters = new DeliveryParameters();
             try
             {
@@ -64,6 +61,10 @@ namespace BiWell.Payment.Controllers
                 }
 
                 deliveryParameters.ticket = ticketResponse.ticket;
+
+                // Getting order items from Freedom
+
+                // Getting order items weight from database 
             }
             catch(Exception ex)
             {

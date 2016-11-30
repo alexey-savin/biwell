@@ -15,7 +15,7 @@ CREATE TABLE [dbo].[ItemWeight](
 
 GO
 
-insert ItemWeght (ItemId, Weight)
+insert ItemWeight (ItemId, Weight)
 values 
 ('1001', 0.15),
 ('1003', 4.5),
