@@ -11,7 +11,7 @@
             return cred;
         }
 
-        public static ByDesignOrderAPI.OrderAPISoap CreateAPIClient()
+        public static ByDesignOrderAPI.OrderAPISoap CreateOrderAPIClient()
         {
             return new ByDesignOrderAPI.OrderAPISoapClient();
         }

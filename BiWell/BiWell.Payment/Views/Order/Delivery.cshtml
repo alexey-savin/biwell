@@ -23,33 +23,97 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <h2>Оформить заказ сейчас</h2>
-                <p>Нажмите кнопку 'Оформить заказ'</p>
+                <p>Проверьте данные заказа и нажмите кнопку 'Оформить заказ'</p>
             </div>
             <div class="panel-body">
+                <h4>Товары</h4>
+                <table class="table table-striped table-condensed table-bordered">
+                    <tr>
+                        <th class="text-right">Код</th>
+                        <th class="text-right">Наименование</th>
+                        <th class="text-right">Количество</th>
+                        <th class="text-right">Стоимость</th>
+                        <th class="text-right">Вес(кг)</th>
+                    </tr>
+
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td class="text-right">@item.ItemId</td>
+                            <td class="text-right">@item.Name</td>
+                            <td class="text-right">@item.Quantity</td>
+                            <td class="text-right">@item.FormattedCost</td>
+                            <td class="text-right">@item.Weight</td>
+                        </tr>
+                    }
+                </table>
+
+                <h4>Адрес доставки</h4>
+                <table class="table table-striped table-condensed table-bordered">
+                    <tr>
+                        <th class="text-right">Индекс</th>
+                        <th class="text-right">Город</th>
+                        <th class="text-right">Улица</th>
+                        <th class="text-right">Дом</th>
+                        <th class="text-right">Квартира</th>
+                    </tr>
+
+                    <tr>
+                        <td class="text-right">@Model.Address.PostIndex</td>
+                        <td class="text-right">@Model.Address.Place</td>
+                        <td class="text-right">@Model.Address.Street</td>
+                        <td class="text-right">@Model.Address.House</td>
+                        <td class="text-right">@Model.Address.Appartment</td>
+                    </tr>
+                </table>
+
+                <h4>Получатель</h4>
+                <table class="table table-striped table-condensed table-bordered">
+                    <tr>
+                        <th class="text-right">Имя</th>
+                        <th class="text-right">Телефон</th>
+                        <th class="text-right">E-mail</th>
+                    </tr>
+
+                    <tr>
+                        <td class="text-right">@Model.Recipient.FullName</td>
+                        <td class="text-right">@Model.Recipient.Phone</td>
+                        <td class="text-right">@Model.Recipient.Email</td>
+                    </tr>
+                </table>
+                
                 <form id="deliveryForm">
                     @Html.Hidden("ticket", Model.ticket)
                     @Html.Hidden("var", Model.ver)
                     @Html.Hidden("callbackURL", Model.callbackURL)
 
-                    @Html.TextBox("names[0]", "Чайник позолоченный")
-                    @Html.TextBox("codes[0]", "1001")
-                    @Html.TextBox("quantities[0]", "2")
-                    @Html.TextBox("costs[0]", "2.12")
-                    @Html.TextBox("paycosts[0]", "5.13")
-                    @Html.TextBox("weights[0]", "0.5")
+                    @for (var i = 0; i < Model.Items.Length; i++)
+                    {
+                        var item = Model.Items[i];
 
-                    @Html.TextBox("place", "Североморск")
-                    @Html.TextBox("street", "Гаджиева")
-                    @Html.TextBox("house", "11")
-                    @Html.TextBox("appartment", "114")
+                        @Html.Hidden($"names[{i}]", item.Name)
+                        @Html.Hidden($"codes[{i}]", item.ItemId)
+                        @Html.Hidden($"quantities[{i}]", item.Quantity)
+                        @Html.Hidden($"costs[{i}]", item.FormattedCost)
+                        @Html.Hidden($"paycosts[{i}]", item.FormattedPayCost)
+                        @Html.Hidden($"weights[{i}]", item.FormattedWeight)
+                    }
 
-                    @Html.TextBox("fullname", "Заказов Тест Иванович")
-                    @Html.TextBox("email", "zakazov1298@ya.ru")
-                    @Html.TextBox("phone", "+79056754321")
+                    @Html.Hidden("postindex", Model.Address.PostIndex)
+                    @Html.Hidden("place", Model.Address.Place)
+                    @Html.Hidden("street", Model.Address.Street)
+                    @Html.Hidden("house", Model.Address.House)
+                    @Html.Hidden("appartment", Model.Address.Appartment)
 
-                    <div class="text-center">
-                        <input class="btn btn-primary" type="submit" value="Оформить заказ" />
-                    </div>
+                    @Html.Hidden("fullname", Model.Recipient.FullName)
+                    @Html.Hidden("email", Model.Recipient.Email)
+                    @Html.Hidden("phone", Model.Recipient.Phone)
+
+                    <p>
+                        <div class="text-center">
+                            <input class="btn btn-primary" type="submit" value="Оформить заказ" />
+                        </div>
+                    </p>
                 </form>
             </div>
         </div>

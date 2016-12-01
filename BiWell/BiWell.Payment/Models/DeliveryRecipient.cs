@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BiWell.Payment.Models
 {
-    public class DeliveryPerson
+    public class DeliveryRecipient
     {
         public string FullName { get; set; }
         public string Email { get; set; }

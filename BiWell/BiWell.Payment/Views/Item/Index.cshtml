@@ -25,7 +25,7 @@
                 <tr>
                     <th class="text-right">ItemId</th>
                     <th>Weight (kg)</th>
-                    <th class="text-center">Actions</th>
+                    <th class="text-right">Actions</th>
                 </tr>
 
                 @foreach (var item in Model)
@@ -33,7 +33,7 @@
                     <tr>
                         <td class="text-right">@item.ItemId</td>
                         <td class="text-right">@item.Weight</td>
-                        <td>
+                        <td class="text-right">
                             @Html.ActionLink("Edit", "Edit", new { id = item.ItemId }) |
                             @Html.ActionLink("Details", "Details", new { id = item.ItemId }) |
                             @Html.ActionLink("Delete", "Delete", new { id = item.ItemId })

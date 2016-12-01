@@ -18,7 +18,7 @@ namespace BiWell.Payment.Implementation
         {
             try
             {
-                var apiClient = ByDesignAPIHelper.CreateAPIClient();
+                var apiClient = ByDesignAPIHelper.CreateOrderAPIClient();
 
                 int orderId = 0;
                 if (int.TryParse(data.mnt_transaction_id, out orderId))
