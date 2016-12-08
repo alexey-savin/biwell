@@ -77,7 +77,7 @@ namespace BiWell.Payment.Controllers
 
             FillFromFreedom(deliveryParameters, orderId);
             FillItemWeights(deliveryParameters);
-            FillCheckoutParameters(deliveryParameters);
+            FillCheckoutParameters(deliveryParameters, orderId);
 
             return deliveryParameters;
         }
@@ -145,7 +145,7 @@ namespace BiWell.Payment.Controllers
             }
         }
 
-        private void FillCheckoutParameters(DeliveryParameters deliveryParameters)
+        private void FillCheckoutParameters(DeliveryParameters deliveryParameters, int orderId)
         {
             var checkoutApiClient = new RestClient(Properties.Settings.Default.CheckoutBaseUrl);
             var request = new RestRequest("service/login/ticket/{apiKey}", Method.GET);
@@ -160,7 +160,7 @@ namespace BiWell.Payment.Controllers
             }
 
             deliveryParameters.ticket = ticketResponse.ticket;
-            deliveryParameters.callbackURL = "about:blank";
+            deliveryParameters.callbackURL = $@"http://payment.biwell.ru/app/order/payment/{orderId}";
         }
     }
 }
