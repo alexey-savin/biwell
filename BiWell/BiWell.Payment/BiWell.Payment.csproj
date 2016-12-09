@@ -190,6 +190,255 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.AuthenticationInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CountryReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CreateCustomerPasswordResetKeyResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CreateManualPayoutAdjustmentResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CreateOnlineOrderV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CreateRepResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CurrencyTypes.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CustomerInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CustomerInfoWithShipping.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CustomerInfoWithShipping_v2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CustomerInfoWithShipping_v3.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CustomerInfoWithShipping_v4.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CustomerInfo_v2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CustomerInfo_v3.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CustomerReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.CustStatusTypesReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GenericResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GenericResponseWithID.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetAvailableCreditsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetCountryStatesReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetCreditTypeReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetCustomerByGuidResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetCustomPayoutMethodDetailsForRepDIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetInventoryResponse_v3.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetInventoryResponse_v4.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetInventoryResponse_v5.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetInventoryReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetInventoryReturn_v2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetOnlineAutoShipResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetPayOutAdjustmentTypesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetPersonalizationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepByGuidResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepCodedUplineInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepInfoResponse_V2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepInfoResponse_V3.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepPasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepPayoutMethodInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepPayoutMethodInfoResponseV2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepPrefPlacementResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepUplineResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GetRepUplineReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GiftCardAccount.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GiftCardField.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.GiftCardTransactionResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.LocaleReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.LocalesByCountry.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.LoginReturn_Customer.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.LoginReturn_Rep.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.MasterOnlineOrders.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.MasterOrdersCreated.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.MasterOrdersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.MasterOrderTotals.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.MiscFieldsReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.MiscFieldValue.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.NewOrderReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.OnlineOrderAddItemV2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.OnlineOrderGetItemsv2Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.OnlineOrderGetShipMethodsResponse_v3.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.OOAddMultipleOrderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.OrderAutoshipItems.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.OrderItems.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.OrderTotals.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.PaymentInfo_CC_Return.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.PaymentTokenizedRequestCybersource_Response.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.Payment_TokenizedRequest_AdyenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.Payment_TokenizedStoreResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.Payment_TokenizedVerifyResponse_AdyenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.Payment_Tokenized_Return.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.PayoutMethods.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.RankTypesReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.RelationshipInformation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.RepCustomersResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.ShipMethods.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.ShipMethods_v2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.TokenizedPaymentRequestFormAdyenResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.TypesReturn.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.UpgradeCustomerResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.ValidatePartyIDResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.ZipBlock.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <Content Include="Service References\ByDesignOnlineAPI\BiWell.Payment.ByDesignOnlineAPI.ZipBlock_v2.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Content>
+    <None Include="Service References\ByDesignOnlineAPI\configuration91.svcinfo" />
+    <None Include="Service References\ByDesignOnlineAPI\configuration.svcinfo" />
+    <None Include="Service References\ByDesignOnlineAPI\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Service References\ByDesignOrderAPI\BiWell.Payment.ByDesignOrderAPI.CheckedOrderedItemForCustomerDIDWithinDateResult.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
@@ -250,6 +499,7 @@
     <Content Include="Service References\ByDesignOrderAPI\BiWell.Payment.ByDesignOrderAPI.ShippingMethods.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <None Include="Service References\ByDesignOnlineAPI\OnlineAPI.wsdl" />
     <None Include="Service References\ByDesignOrderAPI\configuration91.svcinfo" />
     <None Include="Service References\ByDesignOrderAPI\configuration.svcinfo" />
     <None Include="Service References\ByDesignOrderAPI\Reference.svcmap">
@@ -308,6 +558,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Service References\ByDesignOnlineAPI\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\ByDesignOrderAPI\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -346,6 +601,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ByDesignOnlineAPI\" />
     <WCFMetadataStorage Include="Service References\ByDesignOrderAPI\" />
   </ItemGroup>
   <ItemGroup>

@@ -9,7 +9,7 @@ namespace BiWell.Payment.Controllers
 {
     public class PayUrlController : ApiController
     {
-        private IPaymentNotificationProcessor _processor = null;
+        private readonly IPaymentNotificationProcessor _processor = null;
 
         public PayUrlController(IPaymentNotificationProcessor processor)
         {

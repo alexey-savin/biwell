@@ -4,16 +4,24 @@
     {
         public static ByDesignOrderAPI.Credentials CreateCredentials(this ByDesignOrderAPI.OrderAPISoap soap)
         {
-            ByDesignOrderAPI.Credentials cred = new ByDesignOrderAPI.Credentials();
+            var cred = new ByDesignOrderAPI.Credentials();
             cred.Username = Properties.Settings.Default.ByDesignApiUser;
             cred.Password = Properties.Settings.Default.ByDesignApiPassword;
 
             return cred;
         }
 
-        public static ByDesignOrderAPI.OrderAPISoap CreateOrderAPIClient()
+        public static ByDesignOnlineAPI.Credentials CreateCredentials(this ByDesignOnlineAPI.OnlineAPISoap soap)
         {
-            return new ByDesignOrderAPI.OrderAPISoapClient();
+            var cred = new ByDesignOnlineAPI.Credentials();
+            cred.Username = Properties.Settings.Default.ByDesignApiUser;
+            cred.Password = Properties.Settings.Default.ByDesignApiPassword;
+
+            return cred;
         }
+
+        public static ByDesignOrderAPI.OrderAPISoap CreateOrderAPIClient() => new ByDesignOrderAPI.OrderAPISoapClient();
+
+        public static ByDesignOnlineAPI.OnlineAPISoap CreateOnlineAPIClient() => new ByDesignOnlineAPI.OnlineAPISoapClient();
     }
 }
