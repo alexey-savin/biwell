@@ -1,6 +1,7 @@
 ﻿using BiWell.Payment.Models;
 using BiWell.Payment.Helpers;
 using System;
+using System.Linq;
 using System.Globalization;
 using System.Web.Mvc;
 using RestSharp;
@@ -11,6 +12,10 @@ namespace BiWell.Payment.Controllers
 {
     public class OrderController : Controller
     {
+        private const string OrderWithValidPayment = "ORDER_WITH_VALID_PAYMENT";
+        private const string OrderWithNoPayment = "ORDER_WITH_NO_PAYMENT";
+        private const string NoOrderOnRecord = "NO_ORDER_ON_RECORD";
+
         public ActionResult Payment(OrderDetails orderDetails)
         {
             try
@@ -27,14 +32,60 @@ namespace BiWell.Payment.Controllers
                 }
 
                 var orderApiClient = ByDesignAPIHelper.CreateOrderAPIClient();
+                var orderApiCred = orderApiClient.CreateCredentials();
 
-                var response = orderApiClient.GetTotals(orderApiClient.CreateCredentials(), orderId);
-                if (response.Success == 0)
+                var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiCred, orderId);
+                if (responseOrderInfo.Success == 0)
                 {
-                    throw new InvalidOperationException(response.Message);
+                    throw new InvalidOperationException(responseOrderInfo.Message);
                 }
 
-                orderDetails.Amount = decimal.Parse(response.BalanceDue, CultureInfo.InvariantCulture);
+                int custNum = 0;
+                if (int.TryParse(responseOrderInfo.CustomerNumber, out custNum))
+                {
+                    if (custNum < 2000)
+                    {
+                        var responseCustDidOrder = orderApiClient.CheckOrderedItemForCustomerDIDWithinDate_V2(
+                            orderApiCred, 
+                            responseOrderInfo.CustomerNumber, 
+                            Properties.Settings.Default.Freedom_StartKitItemId, 
+                            new DateTime(2016, 1, 1));
+
+                        if (responseCustDidOrder.Success == 0)
+                        {
+                            throw new InvalidOperationException($"Не удается проверить заказы с товаром для кастомера {responseOrderInfo.CustomerNumber}");
+                        }
+
+                        if (responseCustDidOrder.OrderID <= 0) // checking without payment
+                        {
+                            var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiCred, orderId);
+                            if (orderDetailsResponse.Success == 0)
+                            {
+                                throw new InvalidOperationException(orderDetailsResponse.Message);
+                            }
+
+                            var found = orderDetailsResponse.OrderDetailsResponse
+                                .FirstOrDefault(x => x.ProductID.Equals(Properties.Settings.Default.Freedom_StartKitItemId));
+
+                            if (found == null)
+                            {
+                                throw new InvalidOperationException("Стартовый продуктовый набор должен быть заказан");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    throw new InvalidOperationException("Некоррекный формат кода кастомера");
+                }
+
+                var responseTotals = orderApiClient.GetTotals(orderApiCred, orderId);
+                if (responseTotals.Success == 0)
+                {
+                    throw new InvalidOperationException(responseTotals.Message);
+                }
+
+                orderDetails.Amount = decimal.Parse(responseTotals.BalanceDue, CultureInfo.InvariantCulture);
             }
             catch (Exception ex)
             {

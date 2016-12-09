@@ -36,7 +36,7 @@ namespace BiWell.Payment.Implementation
                         {
                             if (custNum >= 2000)
                             {
-                                var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiClient.CreateCredentials(), orderId);
+                                var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiCred, orderId);
                                 if (orderDetailsResponse.Success == 0)
                                 {
                                     throw new InvalidOperationException(orderDetailsResponse.Message);
