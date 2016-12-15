@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using BiWell.Payment;
 
 namespace BiWell.Payment.Controllers
 {
@@ -46,7 +41,7 @@ namespace BiWell.Payment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemId,Weight")] ItemWeight itemWeight)
+        public ActionResult Create([Bind(Include = "ItemId,Name,Weight")] ItemWeight itemWeight)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +73,7 @@ namespace BiWell.Payment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ItemId,Weight")] ItemWeight itemWeight)
+        public ActionResult Edit([Bind(Include = "ItemId,Name,Weight")] ItemWeight itemWeight)
         {
             if (ModelState.IsValid)
             {

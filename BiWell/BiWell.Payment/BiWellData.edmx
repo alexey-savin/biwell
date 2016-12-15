@@ -4,19 +4,19 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BiWellModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BiWellModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ItemWeight">
           <Key>
             <PropertyRef Name="ItemId" />
           </Key>
           <Property Name="ItemId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Weight" Type="numeric" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityContainer Name="BiWellModelStoreContainer">
           <EntitySet Name="ItemWeight" EntityType="Self.ItemWeight" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BiWellModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -26,6 +26,7 @@
           </Key>
           <Property Name="ItemId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Weight" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="BiWellEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ItemWeights" EntityType="Self.ItemWeight" />
@@ -39,6 +40,7 @@
           <EntitySetMapping Name="ItemWeights">
             <EntityTypeMapping TypeName="BiWellModel.ItemWeight">
               <MappingFragment StoreEntitySet="ItemWeight">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
               </MappingFragment>

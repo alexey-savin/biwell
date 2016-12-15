@@ -16,34 +16,41 @@
     <title>Весовые характеристики</title>
 </head>
 <body>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3>Весовые характеристики товаров</h3>
-        </div>
-        <div class="panel-body">
-            <table class="table table-striped table-condensed table-bordered">
-                <tr>
-                    <th class="text-right">ItemId</th>
-                    <th>Weight (kg)</th>
-                    <th class="text-right">Actions</th>
-                </tr>
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3>Весовые характеристики товаров</h3>
+            </div>
+            <div class="panel-body">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        @Html.ActionLink("Создать", "Create", null, new { @class = "btn btn-default" })
+                    </div>
+                </div>
 
-                @foreach (var item in Model)
-                {
+                <table class="table table-striped table-condensed table-bordered">
                     <tr>
-                        <td class="text-right">@item.ItemId</td>
-                        <td class="text-right">@item.Weight</td>
-                        <td class="text-right">
-                            @Html.ActionLink("Edit", "Edit", new { id = item.ItemId }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.ItemId }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.ItemId })
-                        </td>
+                        <th class="text-center">Код товара</th>
+                        <th class="text-center">Наименование</th>
+                        <th class="text-center">Вес (кг)</th>
+                        <th class="text-center">Действия</th>
                     </tr>
-                }
-            </table>
-        </div>
-        <div class="panel-footer">
-            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-default" })
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-left">@item.ItemId</td>
+                            <td class="text-left">@item.Name</td>
+                            <td class="text-right">@item.Weight</td>
+                            <td class="text-right">
+                                @Html.ActionLink("Правка", "Edit", new { id = item.ItemId }) |
+                                @Html.ActionLink("Детали", "Details", new { id = item.ItemId }) |
+                                @Html.ActionLink("Удалить", "Delete", new { id = item.ItemId })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
     </div>
 </body>

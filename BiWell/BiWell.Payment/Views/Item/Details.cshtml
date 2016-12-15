@@ -9,11 +9,11 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
+    <title>Детали</title>
 </head>
 <body>
     <div>
-        <h4>ItemWeight</h4>
+        <h4>Весовая характеристика</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -24,11 +24,18 @@
                 @Html.DisplayFor(model => model.Weight)
             </dd>
     
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ItemId }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Правка", "Edit", new { id = Model.ItemId }) |
+        @Html.ActionLink("К списку", "Index")
     </p>
 </body>
 </html>

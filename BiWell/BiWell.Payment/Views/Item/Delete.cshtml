@@ -25,6 +25,13 @@
                 @Html.DisplayFor(model => model.Weight)
             </dd>
     
+            <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
         </dl>
     
         @using (Html.BeginForm()) {
@@ -32,7 +39,7 @@
     
             <div class="form-actions no-color">
                 <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
+                @Html.ActionLink("К списку", "Index")
             </div>
         }
     </div>
