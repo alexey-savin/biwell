@@ -45,32 +45,42 @@ namespace BiWell.Payment.Controllers
                 {
                     if (custNum < 2000)
                     {
-                        var responseCustDidOrder = orderApiClient.CheckOrderedItemForCustomerDIDWithinDate_V2(
-                            orderApiCred, 
-                            responseOrderInfo.CustomerNumber, 
-                            Properties.Settings.Default.Freedom_StartKitItemId, 
-                            new DateTime(2016, 1, 1));
+                        string[] startKitIds = Properties.Settings.Default.Freedom_StartKitItemId.Split(',');
+                        bool isStartKitFound = false;
 
-                        if (responseCustDidOrder.Success == 0)
+                        foreach (var startKitId in startKitIds)
                         {
-                            throw new InvalidOperationException($"Не удается проверить заказы с товаром для кастомера {responseOrderInfo.CustomerNumber}");
+                            if (isStartKitFound) break;
+
+                            var responseCustDidOrder = orderApiClient.CheckOrderedItemForCustomerDIDWithinDate_V2(
+                            orderApiCred,
+                            responseOrderInfo.CustomerNumber,
+                            startKitId,
+                            new DateTime(2016, 12, 14));
+
+                            if (responseCustDidOrder.Success == 0)
+                            {
+                                throw new InvalidOperationException($"Не удается проверить заказы с товаром '{startKitId}' для кастомера '{responseOrderInfo.CustomerNumber}'");
+                            }
+
+                            isStartKitFound = (responseCustDidOrder.OrderID > 0); // checking without payment
+
+                            if (!isStartKitFound) 
+                            {
+                                var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiCred, orderId);
+                                if (orderDetailsResponse.Success == 0)
+                                {
+                                    throw new InvalidOperationException(orderDetailsResponse.Message);
+                                }
+
+                                isStartKitFound = orderDetailsResponse.OrderDetailsResponse
+                                    .Any(x => x.ProductID.Equals(startKitId));
+                            }
                         }
 
-                        if (responseCustDidOrder.OrderID <= 0) // checking without payment
+                        if (!isStartKitFound)
                         {
-                            var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiCred, orderId);
-                            if (orderDetailsResponse.Success == 0)
-                            {
-                                throw new InvalidOperationException(orderDetailsResponse.Message);
-                            }
-
-                            var found = orderDetailsResponse.OrderDetailsResponse
-                                .FirstOrDefault(x => x.ProductID.Equals(Properties.Settings.Default.Freedom_StartKitItemId));
-
-                            if (found == null)
-                            {
-                                throw new InvalidOperationException("Стартовый продуктовый набор должен быть заказан");
-                            }
+                            throw new InvalidOperationException("Стартовый продуктовый набор должен быть заказан");
                         }
                     }
                 }
