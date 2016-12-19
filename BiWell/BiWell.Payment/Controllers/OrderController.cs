@@ -43,7 +43,7 @@ namespace BiWell.Payment.Controllers
                 int custNum = 0;
                 if (int.TryParse(responseOrderInfo.CustomerNumber, out custNum))
                 {
-                    if (custNum < 2000)
+                    if (custNum < 2000 || custNum >= 100000)
                     {
                         string[] startKitIds = Properties.Settings.Default.Freedom_StartKitItemId.Split(',');
                         bool isStartKitFound = false;
