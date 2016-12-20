@@ -40,10 +40,11 @@ namespace BiWell.Payment.Controllers
                     throw new InvalidOperationException(responseOrderInfo.Message);
                 }
 
-                int custNum = 0;
-                if (int.TryParse(responseOrderInfo.CustomerNumber, out custNum))
+                int custOrRepNum = 0;
+                string custOrRep = !string.IsNullOrEmpty(responseOrderInfo.CustomerNumber) ? responseOrderInfo.CustomerNumber : responseOrderInfo.RepNumber; 
+                if (int.TryParse(responseOrderInfo.CustomerNumber, out custOrRepNum))
                 {
-                    if (custNum < 2000 || custNum >= 100000)
+                    if (custOrRepNum < 2000 || custOrRepNum >= 100000)
                     {
                         string[] startKitIds = Properties.Settings.Default.Freedom_StartKitItemId.Split(',');
                         bool isStartKitFound = false;
