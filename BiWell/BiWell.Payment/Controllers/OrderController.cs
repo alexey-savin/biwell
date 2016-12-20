@@ -42,7 +42,7 @@ namespace BiWell.Payment.Controllers
 
                 int custOrRepNum = 0;
                 string custOrRep = !string.IsNullOrEmpty(responseOrderInfo.CustomerNumber) ? responseOrderInfo.CustomerNumber : responseOrderInfo.RepNumber; 
-                if (int.TryParse(responseOrderInfo.CustomerNumber, out custOrRepNum))
+                if (int.TryParse(custOrRep, out custOrRepNum))
                 {
                     if (custOrRepNum < 2000 || custOrRepNum >= 100000)
                     {
@@ -55,13 +55,13 @@ namespace BiWell.Payment.Controllers
 
                             var responseCustDidOrder = orderApiClient.CheckOrderedItemForCustomerDIDWithinDate_V2(
                             orderApiCred,
-                            responseOrderInfo.CustomerNumber,
+                            custOrRep,
                             startKitId,
                             new DateTime(2016, 12, 14));
 
                             if (responseCustDidOrder.Success == 0)
                             {
-                                throw new InvalidOperationException($"Не удается проверить заказы с товаром '{startKitId}' для кастомера '{responseOrderInfo.CustomerNumber}'");
+                                throw new InvalidOperationException($"Не удается проверить заказы с товаром '{startKitId}' для клиента '{custOrRep}'");
                             }
 
                             isStartKitFound = (responseCustDidOrder.OrderID > 0); // checking without payment

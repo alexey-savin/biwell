@@ -10,7 +10,7 @@
         <p>Введите номер заказа и нажмите кнопку 'Провести оплату'. Вы будете перенаправлены на страницу платежного шлюза</p>
     </div>
     <div class="panel-body">
-        @using (Html.BeginForm("Delivery", "Order"))
+        @using (Html.BeginForm("Payment", "Order"))
         {
             @Html.ValidationSummary();
 
