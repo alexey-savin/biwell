@@ -565,10 +565,13 @@
     <Compile Include="Controllers\PayUrlController.cs" />
     <Compile Include="Helpers\ByDesignAPIHelper.cs" />
     <Compile Include="Implementation\ByDesignOrderProcessor.cs" />
+    <Compile Include="Implementation\CustomerStartKitOrderChecker.cs" />
     <Compile Include="Implementation\DoNothingProcessor.cs" />
+    <Compile Include="Implementation\RepStartKitOrderChecker.cs" />
     <Compile Include="Implementation\SimpleExceptionLogger.cs" />
     <Compile Include="Interfaces\IExceptionLogger.cs" />
     <Compile Include="Interfaces\IPaymentNotificationProcessor.cs" />
+    <Compile Include="Interfaces\IStartKitOrderChecker.cs" />
     <Compile Include="ItemWeight.cs">
       <DependentUpon>BiWellData.tt</DependentUpon>
     </Compile>

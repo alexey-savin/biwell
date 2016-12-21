@@ -88,7 +88,7 @@ namespace BiWell.Payment.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1024")]
+        [global::System.Configuration.DefaultSettingValueAttribute("901BW")]
         public string Freedom_VipKitItemId {
             get {
                 return ((string)(this["Freedom_VipKitItemId"]));
@@ -97,7 +97,7 @@ namespace BiWell.Payment.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1023")]
+        [global::System.Configuration.DefaultSettingValueAttribute("501BW,502BW,503BW,504BW,505BW,506BW")]
         public string Freedom_StartKitItemId {
             get {
                 return ((string)(this["Freedom_StartKitItemId"]));

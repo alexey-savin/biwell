@@ -7,6 +7,8 @@ using System.Web.Mvc;
 using RestSharp;
 using BiWell.Payment.Models.Checkout;
 using System.Collections.Generic;
+using BiWell.Payment.Interfaces;
+using BiWell.Payment.Implementation;
 
 namespace BiWell.Payment.Controllers
 {
@@ -40,50 +42,32 @@ namespace BiWell.Payment.Controllers
                     throw new InvalidOperationException(responseOrderInfo.Message);
                 }
 
-                int custOrRepNum = 0;
-                string custOrRep = !string.IsNullOrEmpty(responseOrderInfo.CustomerNumber) ? responseOrderInfo.CustomerNumber : responseOrderInfo.RepNumber; 
-                if (int.TryParse(custOrRep, out custOrRepNum))
+                string custOrRep = string.Empty;
+
+                bool isRep = false;
+                if (!string.IsNullOrEmpty(responseOrderInfo.CustomerNumber))
                 {
-                    if (custOrRepNum < 2000 || custOrRepNum >= 100000)
+                    custOrRep = responseOrderInfo.CustomerNumber;
+                }
+                else
+                {
+                    custOrRep = responseOrderInfo.RepNumber;
+                    isRep = true;
+                }
+
+                if (!string.IsNullOrEmpty(custOrRep))
+                {
+                    IStartKitOrderChecker startKitChecker = null;
+                    if (isRep)
                     {
-                        string[] startKitIds = Properties.Settings.Default.Freedom_StartKitItemId.Split(',');
-                        bool isStartKitFound = false;
-
-                        foreach (var startKitId in startKitIds)
-                        {
-                            if (isStartKitFound) break;
-
-                            var responseCustDidOrder = orderApiClient.CheckOrderedItemForCustomerDIDWithinDate_V2(
-                            orderApiCred,
-                            custOrRep,
-                            startKitId,
-                            new DateTime(2016, 12, 14));
-
-                            if (responseCustDidOrder.Success == 0)
-                            {
-                                throw new InvalidOperationException($"Не удается проверить заказы с товаром '{startKitId}' для клиента '{custOrRep}'");
-                            }
-
-                            isStartKitFound = (responseCustDidOrder.OrderID > 0); // checking without payment
-
-                            if (!isStartKitFound) 
-                            {
-                                var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiCred, orderId);
-                                if (orderDetailsResponse.Success == 0)
-                                {
-                                    throw new InvalidOperationException(orderDetailsResponse.Message);
-                                }
-
-                                isStartKitFound = orderDetailsResponse.OrderDetailsResponse
-                                    .Any(x => x.ProductID.Equals(startKitId));
-                            }
-                        }
-
-                        if (!isStartKitFound)
-                        {
-                            throw new InvalidOperationException("Стартовый продуктовый набор должен быть заказан");
-                        }
+                        startKitChecker = new RepStartKitOrderChecker();
                     }
+                    else
+                    {
+                        startKitChecker = new CustomerStartKitOrderChecker();
+                    }
+
+                    startKitChecker.CheckFor(custOrRep);
                 }
                 else
                 {
