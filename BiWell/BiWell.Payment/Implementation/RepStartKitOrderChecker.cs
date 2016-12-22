@@ -12,7 +12,7 @@ namespace BiWell.Payment.Implementation
     {
         private readonly DateTime _startKitCheckDateFrom = new DateTime(2016, 12, 1);
 
-        public void CheckFor(string repNumber)
+        public void CheckFor(string repNumber, int currentOrderId)
         {
             var orderApiClient = ByDesignAPIHelper.CreateOrderAPIClient();
             var orderApiCred = orderApiClient.CreateCredentials();
@@ -20,25 +20,25 @@ namespace BiWell.Payment.Implementation
             string[] startKitIds = Properties.Settings.Default.Freedom_StartKitItemId.Split(',');
             bool isStartKitFound = false;
 
-            foreach (var startKitId in startKitIds)
+            var orderListRangeRequest = new GetOrderListRangeRequest(orderApiCred, _startKitCheckDateFrom, DateTime.Now, null);
+            var responseOrderListRange = orderApiClient.GetOrderListRange(orderListRangeRequest);
+
+            foreach (var orderList in responseOrderListRange.GetOrderListRangeResult
+                    .OrderBy(x => x.OrderID))
             {
                 if (isStartKitFound) break;
 
-                var orderListRangeRequest = new GetOrderListRangeRequest(orderApiCred, _startKitCheckDateFrom, DateTime.Now, null);
-                var responseOrderListRange = orderApiClient.GetOrderListRange(orderListRangeRequest);
-
-                foreach (var orderList in responseOrderListRange.GetOrderListRangeResult
-                    .OrderBy(x => x.OrderID))
+                if (orderList.Success > 0)
                 {
-                    if (orderList.Success > 0)
+                    var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiCred, orderList.OrderID);
+                    if (responseOrderInfo.Success == 0)
                     {
-                        var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiCred, orderList.OrderID);
-                        if (responseOrderInfo.Success == 0)
-                        {
-                            throw new InvalidOperationException(responseOrderInfo.Message);
-                        }
+                        throw new InvalidOperationException(responseOrderInfo.Message);
+                    }
 
-                        if (responseOrderInfo.RepNumber.Equals(repNumber))
+                    if (responseOrderInfo.RepNumber.Equals(repNumber))
+                    {
+                        foreach (var startKitId in startKitIds)
                         {
                             var responseOrderDetails = orderApiClient.GetOrderDetailsInfo_V2(orderApiCred, orderList.OrderID);
                             if (responseOrderDetails.Success == 0)

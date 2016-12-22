@@ -2,6 +2,6 @@
 {
     public interface IStartKitOrderChecker
     {
-        void CheckFor(string custOrRep);
+        void CheckFor(string custOrRep, int currentOrderId);
     }
 }

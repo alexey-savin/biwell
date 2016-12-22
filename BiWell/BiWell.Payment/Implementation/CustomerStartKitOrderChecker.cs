@@ -11,7 +11,7 @@ namespace BiWell.Payment.Implementation
     {
         private readonly DateTime _startKitCheckDateFrom = new DateTime(2016, 12, 1);
 
-        public void CheckFor(string custNumber)
+        public void CheckFor(string custNumber, int currentOrderId)
         {
             var orderApiClient = ByDesignAPIHelper.CreateOrderAPIClient();
             var orderApiCred = orderApiClient.CreateCredentials();
@@ -36,17 +36,17 @@ namespace BiWell.Payment.Implementation
 
                 isStartKitFound = (responseClientDidOrder.OrderID > 0); // checking without payment
 
-                //if (!isStartKitFound)
-                //{
-                //    var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiCred, orderId);
-                //    if (orderDetailsResponse.Success == 0)
-                //    {
-                //        throw new InvalidOperationException(orderDetailsResponse.Message);
-                //    }
+                if (!isStartKitFound)
+                {
+                    var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiCred, currentOrderId);
+                    if (orderDetailsResponse.Success == 0)
+                    {
+                        throw new InvalidOperationException(orderDetailsResponse.Message);
+                    }
 
-                //    isStartKitFound = orderDetailsResponse.OrderDetailsResponse
-                //        .Any(x => x.ProductID.Equals(startKitId));
-                //}
+                    isStartKitFound = orderDetailsResponse.OrderDetailsResponse
+                        .Any(x => x.ProductID.Equals(startKitId));
+                }
             }
 
             if (!isStartKitFound)

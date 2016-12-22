@@ -67,7 +67,7 @@ namespace BiWell.Payment.Controllers
                         startKitChecker = new CustomerStartKitOrderChecker();
                     }
 
-                    startKitChecker.CheckFor(custOrRep);
+                    startKitChecker.CheckFor(custOrRep, orderId);
                 }
                 else
                 {
