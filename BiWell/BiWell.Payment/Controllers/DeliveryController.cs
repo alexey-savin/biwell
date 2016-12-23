@@ -56,6 +56,7 @@ namespace BiWell.Payment.Controllers
                     var gv = new GridView();
                     gv.DataSource = ordersToDelivery
                         .Where(x => x.Status == "Posted")
+                        .OrderByDescending(x => x.OrderId)
                         .Select(x => new
                         {
                             OrderId = x.OrderId,
@@ -152,6 +153,8 @@ namespace BiWell.Payment.Controllers
             }
 
             deliveryParameters.Status = orderInfoResponse.Status;
+            deliveryParameters.ShipMethodId = orderInfoResponse.ShipMethodID;
+            deliveryParameters.ShipMethod = orderInfoResponse.ShipMethod;
 
             DeliveryAddress address = new DeliveryAddress
             {

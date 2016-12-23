@@ -22,15 +22,19 @@
                 <th class="text-center">Дата заказа</th>
                 <th class="text-center">ФИО получателя</th>
                 <th class="text-center">Статус</th>
+                <th class="text-center">Способ доставки</th>
             </tr>
 
-            @foreach (var item in Model.Where(x => x.Status == "Posted"))
+            @foreach (var item in Model
+                .Where(x => x.Status == "Posted")
+                .OrderByDescending(x => x.OrderId))
             {
                 <tr>
                     <td class="text-left">@item.OrderId</td>
                     <td class="text-left">@item.CreatedAt</td>
                     <td class="text-left">@item.Recipient.FullName</td>
                     <td class="text-left">@item.Status</td>
+                    <td class="text-left">@item.ShipMethod</td>
                 </tr>
             }
         </table>
