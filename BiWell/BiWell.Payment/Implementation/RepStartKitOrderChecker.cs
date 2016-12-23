@@ -20,8 +20,8 @@ namespace BiWell.Payment.Implementation
             string[] startKitIds = Properties.Settings.Default.Freedom_StartKitItemId.Split(',');
             bool isStartKitFound = false;
 
-            var orderListRangeRequest = new GetOrderListRangeRequest(orderApiCred, _startKitCheckDateFrom, DateTime.Now, null);
-            var responseOrderListRange = orderApiClient.GetOrderListRange(orderListRangeRequest);
+            var requestOrderListRange = new GetOrderListRangeRequest(orderApiCred, _startKitCheckDateFrom, DateTime.Now, null);
+            var responseOrderListRange = orderApiClient.GetOrderListRange(requestOrderListRange);
 
             foreach (var orderList in responseOrderListRange.GetOrderListRangeResult
                     .OrderBy(x => x.OrderID))

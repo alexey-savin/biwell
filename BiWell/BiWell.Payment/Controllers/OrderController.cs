@@ -1,7 +1,6 @@
 ﻿using BiWell.Payment.Models;
 using BiWell.Payment.Helpers;
 using System;
-using System.Linq;
 using System.Globalization;
 using System.Web.Mvc;
 using RestSharp;

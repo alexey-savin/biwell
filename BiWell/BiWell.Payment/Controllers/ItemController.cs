@@ -1,7 +1,11 @@
 ﻿using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace BiWell.Payment.Controllers
 {
@@ -108,6 +112,55 @@ namespace BiWell.Payment.Controllers
             db.ItemWeights.Remove(itemWeight);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ExportExcel()
+        {
+            ExportExcelAsHtml();
+
+            return RedirectToAction("Index");
+        }
+
+        private void ExportExcelAsHtml()
+        {
+            Response.ClearContent();
+            Response.AddHeader("content-disposition", "attachment;filename=InventoryItems.xls");
+            Response.AddHeader("Content-Type", "application/vnd.ms-excel");
+
+            using (StringWriter sw = new StringWriter())
+            {
+                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
+                {
+                    var gv = new GridView();
+                    gv.DataSource = db.ItemWeights.ToList();
+                    gv.DataBind();
+                    gv.RenderControl(htw);
+                    Response.Output.Write(sw.ToString());
+                }
+            }
+            Response.End();    
+        }
+
+        private void ExportExcelAsTsv()
+        {
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=DemoExcel.xls");
+            Response.ContentType = "application/vnd.ms-excel";
+            Response.Charset = Encoding.UTF8.WebName;
+            Response.ContentEncoding = Encoding.UTF8;
+
+            foreach (var item in db.ItemWeights)
+            {
+                Response.Output.Write(item.ItemId);
+                Response.Output.Write("\t");
+                Response.Output.Write(item.Name);
+                Response.Output.Write("\t");
+                Response.Output.WriteLine();
+            }
+
+            Response.Flush();
+            Response.End();
         }
 
         protected override void Dispose(bool disposing)
