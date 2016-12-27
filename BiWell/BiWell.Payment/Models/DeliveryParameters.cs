@@ -32,5 +32,11 @@ namespace BiWell.Payment.Models
                 return string.Join(",", itemsStr);
             }
         }
+
+        public bool IsSelfPickup => ShipMethodId == SelfPickupShipMethodId;
+
+        public int SelfPickupShipMethodId => Properties.Settings.Default.Freedom_SelfPickupShipMethodId;
+
+        public bool IsPosted => Status == "Posted";
     }
 }

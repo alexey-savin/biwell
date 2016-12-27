@@ -55,7 +55,8 @@ namespace BiWell.Payment.Controllers
                 {
                     var gv = new GridView();
                     gv.DataSource = ordersToDelivery
-                        .Where(x => x.Status == "Posted")
+                        .Where(x => x.IsPosted)
+                        .Where(x => !x.IsSelfPickup)
                         .OrderByDescending(x => x.OrderId)
                         .Select(x => new
                         {

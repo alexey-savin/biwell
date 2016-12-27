@@ -103,5 +103,14 @@ namespace BiWell.Payment.Properties {
                 return ((string)(this["Freedom_StartKitItemId"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int Freedom_SelfPickupShipMethodId {
+            get {
+                return ((int)(this["Freedom_SelfPickupShipMethodId"]));
+            }
+        }
     }
 }

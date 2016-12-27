@@ -29,5 +29,8 @@
     <Setting Name="Freedom_StartKitItemId" Type="System.String" Scope="Application">
       <Value Profile="(Default)">501BW,502BW,503BW,504BW,505BW,506BW</Value>
     </Setting>
+    <Setting Name="Freedom_SelfPickupShipMethodId" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -26,7 +26,8 @@
             </tr>
 
             @foreach (var item in Model
-                .Where(x => x.Status == "Posted")
+                .Where(x => x.IsPosted)
+                .Where(x => !x.IsSelfPickup)
                 .OrderByDescending(x => x.OrderId))
             {
                 <tr>
