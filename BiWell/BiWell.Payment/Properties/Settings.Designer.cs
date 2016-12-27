@@ -112,5 +112,23 @@ namespace BiWell.Payment.Properties {
                 return ((int)(this["Freedom_SelfPickupShipMethodId"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("day")]
+        public string Freedom_RecentPeriodType {
+            get {
+                return ((string)(this["Freedom_RecentPeriodType"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public int Freedom_RecentPeriodLength {
+            get {
+                return ((int)(this["Freedom_RecentPeriodLength"]));
+            }
+        }
     }
 }

@@ -15,9 +15,6 @@ namespace BiWell.Payment.Controllers
 {
     public class DeliveryController : Controller
     {
-        private const string RecentPeriodType = "day";
-        private const int RecentPeriodLength = 2;
-
         // GET: Delivery
         public ActionResult Index()
         {
@@ -97,8 +94,8 @@ namespace BiWell.Payment.Controllers
 
             var requestOrderListRecent = new GetOrderListRecentRequest();
             requestOrderListRecent.Credentials = orderApiCred;
-            requestOrderListRecent.PeriodType = RecentPeriodType;
-            requestOrderListRecent.PeriodLength = RecentPeriodLength;
+            requestOrderListRecent.PeriodType = Properties.Settings.Default.Freedom_RecentPeriodType;
+            requestOrderListRecent.PeriodLength = Properties.Settings.Default.Freedom_RecentPeriodLength;
             requestOrderListRecent.EvalDateLastModified = false;
             var responseOrderList = orderApiClient.GetOrderListRecent(requestOrderListRecent);
 
