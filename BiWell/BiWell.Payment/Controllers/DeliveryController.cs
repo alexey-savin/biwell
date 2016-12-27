@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -43,9 +44,12 @@ namespace BiWell.Payment.Controllers
         {
             List<DeliveryParameters> ordersToDelivery = ReadOrdersToDelivery();
 
-            Response.ClearContent();
+            Response.Clear();
             Response.AddHeader("content-disposition", "attachment;filename=Delivery.xls");
             Response.AddHeader("Content-Type", "application/vnd.ms-excel");
+            Response.ContentEncoding = Encoding.Unicode;
+            Response.BinaryWrite(Encoding.Unicode.GetPreamble());
+            
             using (StringWriter sw = new StringWriter())
             {
                 using (HtmlTextWriter htw = new HtmlTextWriter(sw))
@@ -82,6 +86,7 @@ namespace BiWell.Payment.Controllers
                     Response.Output.Write(sw.ToString());
                 }
             }
+            Response.Flush();
             Response.End();
         }
 
