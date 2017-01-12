@@ -45,7 +45,7 @@ namespace BiWell.Payment.Controllers
             List<DeliveryParameters> ordersToDelivery = ReadOrdersToDelivery();
 
             Response.Clear();
-            Response.AddHeader("content-disposition", "attachment;filename=Delivery.xls");
+            Response.AddHeader("content-disposition", $"attachment;filename=Delivery_{DateTime.Today.ToShortDateString()}.xls");
             Response.AddHeader("Content-Type", "application/vnd.ms-excel");
             Response.ContentEncoding = Encoding.Unicode;
             Response.BinaryWrite(Encoding.Unicode.GetPreamble());
@@ -68,11 +68,12 @@ namespace BiWell.Payment.Controllers
                             Email = x.Recipient.Email,
                             IssueType = 80,
                             PaymentType = 0,
-                            PayCost = 0,
+                            PayCost = x.Items.Sum(di => di.PayCost),
                             BalanceDue = 0,
                             Weight = x.Items.Sum(di => di.Weight) * 1000,
-                            PlacesQty = 0,
+                            PlacesQty = 1,
                             DeliveryCode = "120.2.1",
+                            DeliveryPointCode = "120.2.1",
                             PostIndex = x.Address.PostIndex,
                             Region = x.Address.Place,
                             Address = x.Address.Street,

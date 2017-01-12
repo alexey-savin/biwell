@@ -35,42 +35,45 @@ namespace BiWell.Payment.Controllers
                 var orderApiClient = ByDesignAPIHelper.CreateOrderAPIClient();
                 var orderApiCred = orderApiClient.CreateCredentials();
 
-                var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiCred, orderId);
-                if (responseOrderInfo.Success == 0)
+                if (Properties.Settings.Default.Freedom_StartKitCheckEnabled)
                 {
-                    throw new InvalidOperationException(responseOrderInfo.Message);
-                }
-
-                string custOrRep = string.Empty;
-
-                bool isRep = false;
-                if (!string.IsNullOrEmpty(responseOrderInfo.CustomerNumber))
-                {
-                    custOrRep = responseOrderInfo.CustomerNumber;
-                }
-                else
-                {
-                    custOrRep = responseOrderInfo.RepNumber;
-                    isRep = true;
-                }
-
-                if (!string.IsNullOrEmpty(custOrRep))
-                {
-                    IStartKitOrderChecker startKitChecker = null;
-                    if (isRep)
+                    var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiCred, orderId);
+                    if (responseOrderInfo.Success == 0)
                     {
-                        startKitChecker = new RepStartKitOrderChecker();
+                        throw new InvalidOperationException(responseOrderInfo.Message);
+                    }
+
+                    string custOrRep = string.Empty;
+
+                    bool isRep = false;
+                    if (!string.IsNullOrEmpty(responseOrderInfo.CustomerNumber))
+                    {
+                        custOrRep = responseOrderInfo.CustomerNumber;
                     }
                     else
                     {
-                        startKitChecker = new CustomerStartKitOrderChecker();
+                        custOrRep = responseOrderInfo.RepNumber;
+                        isRep = true;
                     }
 
-                    startKitChecker.CheckFor(custOrRep, orderId);
-                }
-                else
-                {
-                    throw new InvalidOperationException("Некоррекный формат кода кастомера");
+                    if (!string.IsNullOrEmpty(custOrRep))
+                    {
+                        IStartKitOrderChecker startKitChecker = null;
+                        if (isRep)
+                        {
+                            startKitChecker = new RepStartKitOrderChecker();
+                        }
+                        else
+                        {
+                            startKitChecker = new CustomerStartKitOrderChecker();
+                        }
+
+                        startKitChecker.CheckFor(custOrRep, orderId);
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("Некоррекный формат кода кастомера");
+                    }
                 }
 
                 var responseTotals = orderApiClient.GetTotals(orderApiCred, orderId);

@@ -10,8 +10,6 @@ namespace BiWell.Payment.Implementation
 {
     public class RepStartKitOrderChecker : IStartKitOrderChecker
     {
-        private readonly DateTime _startKitCheckDateFrom = new DateTime(2016, 12, 1);
-
         public void CheckFor(string repNumber, int currentOrderId)
         {
             var orderApiClient = ByDesignAPIHelper.CreateOrderAPIClient();
@@ -20,7 +18,7 @@ namespace BiWell.Payment.Implementation
             string[] startKitIds = Properties.Settings.Default.Freedom_StartKitItemId.Split(',');
             bool isStartKitFound = false;
 
-            var requestOrderListRange = new GetOrderListRangeRequest(orderApiCred, _startKitCheckDateFrom, DateTime.Now, null);
+            var requestOrderListRange = new GetOrderListRangeRequest(orderApiCred, Properties.Settings.Default.Freedom_StartKitCheckDateFrom, DateTime.Now, null);
             var responseOrderListRange = orderApiClient.GetOrderListRange(requestOrderListRange);
 
             foreach (var orderList in responseOrderListRange.GetOrderListRangeResult

@@ -130,5 +130,23 @@ namespace BiWell.Payment.Properties {
                 return ((int)(this["Freedom_RecentPeriodLength"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2016-12-01")]
+        public global::System.DateTime Freedom_StartKitCheckDateFrom {
+            get {
+                return ((global::System.DateTime)(this["Freedom_StartKitCheckDateFrom"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Freedom_StartKitCheckEnabled {
+            get {
+                return ((bool)(this["Freedom_StartKitCheckEnabled"]));
+            }
+        }
     }
 }

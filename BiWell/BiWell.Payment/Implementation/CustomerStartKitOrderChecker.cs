@@ -9,8 +9,6 @@ namespace BiWell.Payment.Implementation
 {
     public class CustomerStartKitOrderChecker : IStartKitOrderChecker
     {
-        private readonly DateTime _startKitCheckDateFrom = new DateTime(2016, 12, 1);
-
         public void CheckFor(string custNumber, int currentOrderId)
         {
             var orderApiClient = ByDesignAPIHelper.CreateOrderAPIClient();
@@ -27,7 +25,7 @@ namespace BiWell.Payment.Implementation
                     orderApiCred,
                     custNumber,
                     startKitId,
-                    _startKitCheckDateFrom);
+                    Properties.Settings.Default.Freedom_StartKitCheckDateFrom);
 
                 if (responseClientDidOrder.Success == 0)
                 {
