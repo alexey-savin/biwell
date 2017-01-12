@@ -76,8 +76,8 @@ namespace BiWell.Payment.Controllers
                             PostIndex = x.Address.PostIndex,
                             Region = x.Address.Place,
                             Address = x.Address.Street,
-                            DeliveryTimeFrom = "",
-                            DeliveryTimeTo = "",
+                            DeliveryTimeFrom = "10:00",
+                            DeliveryTimeTo = "18:00",
                             Comment = "",
                             Items = x.ItemsString
                         });
