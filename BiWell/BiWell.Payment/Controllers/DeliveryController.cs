@@ -76,7 +76,7 @@ namespace BiWell.Payment.Controllers
                             DeliveryPointCode = "120.2.1",
                             PostIndex = x.DeliveryAddress.PostIndex,
                             Region = x.DeliveryAddress.Place,
-                            Address = x.DeliveryAddress.Street,
+                            Address = x.DeliveryAddress.Street_1,
                             DeliveryTimeFrom = "10:00",
                             DeliveryTimeTo = "18:00",
                             Comment = "",
@@ -194,8 +194,11 @@ namespace BiWell.Payment.Controllers
             Address deliveryAddress = new Address
             {
                 PostIndex = responseOrderInfo.ShipPostalCode,
+                Country = responseOrderInfo.ShipCountry,
+                State = responseOrderInfo.ShipState,
                 Place = responseOrderInfo.ShipCity,
-                Street = responseOrderInfo.ShipStreet1
+                Street_1 = responseOrderInfo.ShipStreet1,
+                Street_2 = responseOrderInfo.ShipStreet2
             };
 
             DeliveryRecipient recipient = new DeliveryRecipient

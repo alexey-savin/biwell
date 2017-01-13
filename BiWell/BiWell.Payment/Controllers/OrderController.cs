@@ -147,11 +147,14 @@ namespace BiWell.Payment.Controllers
                 throw new InvalidOperationException(orderInfoResponse.Message);
             }
 
-            Address address = new Address
+            Address deliveryAddress = new Address
             {
                 PostIndex = orderInfoResponse.ShipPostalCode,
+                Country = orderInfoResponse.ShipCountry,
+                State = orderInfoResponse.ShipState,
                 Place = orderInfoResponse.ShipCity,
-                Street = orderInfoResponse.ShipStreet1
+                Street_1 = orderInfoResponse.ShipStreet1,
+                Street_2 = orderInfoResponse.ShipStreet2
             };
 
             DeliveryRecipient recipient = new DeliveryRecipient
@@ -162,7 +165,7 @@ namespace BiWell.Payment.Controllers
             };
 
             deliveryParameters.Items = deliveryItems.ToArray();
-            deliveryParameters.DeliveryAddress = address;
+            deliveryParameters.DeliveryAddress = deliveryAddress;
             deliveryParameters.Recipient = recipient;
         }
 
