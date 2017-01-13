@@ -63,7 +63,7 @@ namespace BiWell.Payment.Controllers
                         {
                             OrderId = x.OrderId,
                             FIO = x.Recipient.FullName,
-                            Phone = x.Recipient.Phone,
+                            Phone = x.ContactInfo.Phone.Substring(x.ContactInfo.Phone.Length - 10),
                             Phone2 = "",
                             Email = x.Recipient.Email,
                             IssueType = 80,
@@ -74,9 +74,9 @@ namespace BiWell.Payment.Controllers
                             PlacesQty = 1,
                             DeliveryCode = "120.2.1",
                             DeliveryPointCode = "120.2.1",
-                            PostIndex = x.Address.PostIndex,
-                            Region = x.Address.Place,
-                            Address = x.Address.Street,
+                            PostIndex = x.DeliveryAddress.PostIndex,
+                            Region = x.DeliveryAddress.Place,
+                            Address = x.DeliveryAddress.Street,
                             DeliveryTimeFrom = "10:00",
                             DeliveryTimeTo = "18:00",
                             Comment = "",
@@ -150,33 +150,65 @@ namespace BiWell.Payment.Controllers
                 });
             }
 
-            var orderInfoResponse = orderApiClient.GetOrderInfo_V2(orderApiClient.CreateCredentials(), orderId);
-            if (orderInfoResponse.Success == 0)
+            var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiClient.CreateCredentials(), orderId);
+            if (responseOrderInfo.Success == 0)
             {
-                throw new InvalidOperationException(orderInfoResponse.Message);
+                throw new InvalidOperationException(responseOrderInfo.Message);
             }
 
-            deliveryParameters.Status = orderInfoResponse.Status;
-            deliveryParameters.ShipMethodId = orderInfoResponse.ShipMethodID;
-            deliveryParameters.ShipMethod = orderInfoResponse.ShipMethod;
+            OrderClientInfo orderClientInfo = OrderClientInfo.ExtractFromOrder(responseOrderInfo); // extracting order client info
+            var onlineApiClient = ByDesignAPIHelper.CreateOnlineAPIClient();
+            ClientContactInfo contactInfo = new ClientContactInfo();
 
-            DeliveryAddress address = new DeliveryAddress
+            if (orderClientInfo.IsRep)
             {
-                PostIndex = orderInfoResponse.ShipPostalCode,
-                Place = orderInfoResponse.ShipCity,
-                Street = orderInfoResponse.ShipStreet1
+                var responseRepInfo = onlineApiClient.GetRepInfo_V3(onlineApiClient.CreateCredentials(), orderClientInfo.ClientNumber);
+                if (responseRepInfo.Success == 0)
+                {
+                    throw new InvalidOperationException(responseOrderInfo.Message);
+                }
+
+                contactInfo.FirstName = responseRepInfo.Firstname;
+                contactInfo.LastName = responseRepInfo.Lastname;
+                contactInfo.Email = responseRepInfo.Email;
+                contactInfo.Phone = responseRepInfo.Phone1;
+            }
+            else
+            {
+                var responseCustInfo = onlineApiClient.GetCustomerInfo_v3(onlineApiClient.CreateCredentials(), orderClientInfo.ClientNumber);
+                if (responseCustInfo.Success == 0)
+                {
+                    throw new InvalidOperationException(responseOrderInfo.Message);
+                }
+
+                contactInfo.FirstName = responseCustInfo.FirstName;
+                contactInfo.LastName = responseCustInfo.LastName;
+                contactInfo.Email = responseCustInfo.Email;
+                contactInfo.Phone = responseCustInfo.Phone1;
+            }
+
+            deliveryParameters.Status = responseOrderInfo.Status;
+            deliveryParameters.ShipMethodId = responseOrderInfo.ShipMethodID;
+            deliveryParameters.ShipMethod = responseOrderInfo.ShipMethod;
+
+            Address deliveryAddress = new Address
+            {
+                PostIndex = responseOrderInfo.ShipPostalCode,
+                Place = responseOrderInfo.ShipCity,
+                Street = responseOrderInfo.ShipStreet1
             };
 
             DeliveryRecipient recipient = new DeliveryRecipient
             {
-                FullName = orderInfoResponse.ShipName1,
-                Phone = orderInfoResponse.ShipPhone,
-                Email = orderInfoResponse.ShipEmail
+                FullName = responseOrderInfo.ShipName1,
+                Phone = responseOrderInfo.ShipPhone,
+                Email = responseOrderInfo.ShipEmail
             };
 
             deliveryParameters.Items = deliveryItems.ToArray();
-            deliveryParameters.Address = address;
+            deliveryParameters.DeliveryAddress = deliveryAddress;
             deliveryParameters.Recipient = recipient;
+            deliveryParameters.ContactInfo = contactInfo;
         }
 
         private void FillItemWeights(DeliveryParameters deliveryParameters)

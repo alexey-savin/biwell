@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BiWell.Payment.Models
 {
-    public class DeliveryAddress
+    public class Address
     {
         public string PostIndex { get; set; }
         public string Place { get; set; }

@@ -43,23 +43,12 @@ namespace BiWell.Payment.Controllers
                         throw new InvalidOperationException(responseOrderInfo.Message);
                     }
 
-                    string custOrRep = string.Empty;
+                    OrderClientInfo orderClientInfo = OrderClientInfo.ExtractFromOrder(responseOrderInfo);
 
-                    bool isRep = false;
-                    if (!string.IsNullOrEmpty(responseOrderInfo.CustomerNumber))
-                    {
-                        custOrRep = responseOrderInfo.CustomerNumber;
-                    }
-                    else
-                    {
-                        custOrRep = responseOrderInfo.RepNumber;
-                        isRep = true;
-                    }
-
-                    if (!string.IsNullOrEmpty(custOrRep))
+                    if (!string.IsNullOrEmpty(orderClientInfo.ClientNumber))
                     {
                         IStartKitOrderChecker startKitChecker = null;
-                        if (isRep)
+                        if (orderClientInfo.IsRep)
                         {
                             startKitChecker = new RepStartKitOrderChecker();
                         }
@@ -68,7 +57,7 @@ namespace BiWell.Payment.Controllers
                             startKitChecker = new CustomerStartKitOrderChecker();
                         }
 
-                        startKitChecker.CheckFor(custOrRep, orderId);
+                        startKitChecker.CheckFor(orderClientInfo.ClientNumber, orderId);
                     }
                     else
                     {
@@ -158,7 +147,7 @@ namespace BiWell.Payment.Controllers
                 throw new InvalidOperationException(orderInfoResponse.Message);
             }
 
-            DeliveryAddress address = new DeliveryAddress
+            Address address = new Address
             {
                 PostIndex = orderInfoResponse.ShipPostalCode,
                 Place = orderInfoResponse.ShipCity,
@@ -173,7 +162,7 @@ namespace BiWell.Payment.Controllers
             };
 
             deliveryParameters.Items = deliveryItems.ToArray();
-            deliveryParameters.Address = address;
+            deliveryParameters.DeliveryAddress = address;
             deliveryParameters.Recipient = recipient;
         }
 

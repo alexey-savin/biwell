@@ -16,8 +16,9 @@ namespace BiWell.Payment.Models
         public string ShipMethod { get; set; }
 
         public DeliveryItem[] Items { get; set; }
-        public DeliveryAddress Address { get; set; }
+        public Address DeliveryAddress { get; set; }
         public DeliveryRecipient Recipient { get; set; }
+        public ClientContactInfo ContactInfo { get; set; }
 
         public string ItemsString
         {
