@@ -107,31 +107,46 @@ namespace BiWell.Payment.Controllers
 
             foreach (var orderList in responseOrderList.GetOrderListRecentResult)
             {
-                var orderToDelivery = CreateDeliveryParameters(orderList.OrderID);
+                DeliveryParameters orderToDelivery = new DeliveryParameters
+                {
+                    OrderId = orderList.OrderID,
+                    CreatedAt = orderList.CreatedDate
+                };
 
-                orderToDelivery.OrderId = orderList.OrderID;
-                orderToDelivery.CreatedAt = orderList.CreatedDate;
+                FillFromFreedomHeader(orderToDelivery);
 
-                result.Add(orderToDelivery);
+                if (orderToDelivery.IsPosted && !orderToDelivery.IsSelfPickup)
+                {
+                    FillFromFreedomDetails(orderToDelivery);
+                    FillItemWeights(orderToDelivery);
+
+                    result.Add(orderToDelivery);
+                }
             }
 
             return result;
         }
 
-        private DeliveryParameters CreateDeliveryParameters(int orderId)
-        {
-            DeliveryParameters deliveryParameters = new DeliveryParameters();
-
-            FillFromFreedom(deliveryParameters, orderId);
-            FillItemWeights(deliveryParameters);
-
-            return deliveryParameters;
-        }
-
-        private void FillFromFreedom(DeliveryParameters deliveryParameters, int orderId)
+        private void FillFromFreedomHeader(DeliveryParameters deliveryParameters)
         {
             var orderApiClient = ByDesignAPIHelper.CreateOrderAPIClient();
-            var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiClient.CreateCredentials(), orderId);
+
+            var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiClient.CreateCredentials(), deliveryParameters.OrderId);
+            if (responseOrderInfo.Success == 0)
+            {
+                throw new InvalidOperationException(responseOrderInfo.Message);
+            }
+
+            deliveryParameters.Status = responseOrderInfo.Status;
+            deliveryParameters.ShipMethodId = responseOrderInfo.ShipMethodID;
+            deliveryParameters.ShipMethod = responseOrderInfo.ShipMethod;
+        }
+
+        private void FillFromFreedomDetails(DeliveryParameters deliveryParameters)
+        {
+            var orderApiClient = ByDesignAPIHelper.CreateOrderAPIClient();
+
+            var orderDetailsResponse = orderApiClient.GetOrderDetailsInfo_V2(orderApiClient.CreateCredentials(), deliveryParameters.OrderId);
             if (orderDetailsResponse.Success == 0)
             {
                 throw new InvalidOperationException(orderDetailsResponse.Message);
@@ -150,7 +165,7 @@ namespace BiWell.Payment.Controllers
                 });
             }
 
-            var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiClient.CreateCredentials(), orderId);
+            var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiClient.CreateCredentials(), deliveryParameters.OrderId);
             if (responseOrderInfo.Success == 0)
             {
                 throw new InvalidOperationException(responseOrderInfo.Message);
@@ -186,10 +201,6 @@ namespace BiWell.Payment.Controllers
                 contactInfo.Email = responseCustInfo.Email;
                 contactInfo.Phone = responseCustInfo.Phone1;
             }
-
-            deliveryParameters.Status = responseOrderInfo.Status;
-            deliveryParameters.ShipMethodId = responseOrderInfo.ShipMethodID;
-            deliveryParameters.ShipMethod = responseOrderInfo.ShipMethod;
 
             Address deliveryAddress = new Address
             {

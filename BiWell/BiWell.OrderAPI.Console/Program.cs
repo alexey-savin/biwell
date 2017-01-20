@@ -1,4 +1,7 @@
-﻿namespace BiWell.OrderAPI.Console
+﻿using System;
+using static System.Console;
+
+namespace BiWell.OrderAPI.Console
 {
     class Program
     {
@@ -7,22 +10,30 @@
             ByDesignWebService.Credentials cred = new ByDesignWebService.Credentials();
             cred.Username = "AlexeyInkuev";
             cred.Password = "Moll35$#";
-            cred.Token = "token";
-
-            ByDesignWebService.OrderAPISoap cli = new ByDesignWebService.OrderAPISoapClient();
-            var versionResponse = cli.Version();
-
-            System.Console.WriteLine("OrderAPI v{0}", versionResponse.Message);
-
-            ByDesignWebService.GetPaymentResponse resp = cli.GetPayments(cred, 1017);
-            foreach (var pr in resp.PaymentResponse)
-            {
-                System.Console.WriteLine(pr.PaymentStatus);
-            }
             
-                        
+            ByDesignWebService.OrderAPISoap orderApiClient = new ByDesignWebService.OrderAPISoapClient();
 
-            System.Console.ReadKey();
+            var requestOrderListRecent = new ByDesignWebService.GetOrderListRecentRequest();
+            requestOrderListRecent.Credentials = cred;
+            requestOrderListRecent.PeriodType = "day";
+            requestOrderListRecent.PeriodLength = 10;
+            requestOrderListRecent.EvalDateLastModified = false;
+            var responseOrderList = orderApiClient.GetOrderListRecent(requestOrderListRecent);
+
+            DateTime start = DateTime.Now;
+            foreach (var orderList in responseOrderList.GetOrderListRecentResult)
+            {
+                var responseOrderInfo = orderApiClient.GetOrderInfo_V2(cred, orderList.OrderID);
+                if (responseOrderInfo.Success == 0)
+                {
+                    continue;
+                }
+
+                WriteLine($"{orderList.OrderID} = {responseOrderInfo.Status}, {responseOrderInfo.ShipMethod}");
+            }
+
+            WriteLine($"Done with {DateTime.Now.Subtract(start).TotalSeconds}");
+            ReadKey();
         }
     }
 }
