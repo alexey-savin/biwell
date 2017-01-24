@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace BiWell.Payment.Models
 {
@@ -27,7 +28,7 @@ namespace BiWell.Payment.Models
                 var itemsStr = new List<string>();
                 foreach (var item in Items)
                 {
-                    itemsStr.Add($"{item.ItemId}/{item.Quantity}/{item.Cost}");
+                    itemsStr.Add($"{item.ItemId}/{item.Quantity}/{string.Format(CultureInfo.InvariantCulture, "{0:0.00}", item.Cost)}");
                 }
 
                 return string.Join(",", itemsStr);
