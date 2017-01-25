@@ -15,6 +15,7 @@ namespace BiWell.Payment.Models
         public string Status { get; set; }
         public int ShipMethodId { get; set; }
         public string ShipMethod { get; set; }
+        public decimal ShippingTotal { get; set; }
 
         public DeliveryItem[] Items { get; set; }
         public Address DeliveryAddress { get; set; }

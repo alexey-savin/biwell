@@ -68,8 +68,8 @@ namespace BiWell.Payment.Controllers
                             Email = x.Recipient.Email,
                             IssueType = 151,
                             PaymentType = 0,
-                            PayCost = x.Items.Sum(di => di.PayCost),
-                            BalanceDue = 0,
+                            PayCost = string.Format(CultureInfo.InvariantCulture, "{0:0.00}", x.Items.Sum(di => di.PayCost)),
+                            BalanceDue = "0.00",
                             Weight = x.Items.Sum(di => di.Weight) * 1000,
                             PlacesQty = 1,
                             DeliveryCode = "120.2.1",
@@ -79,6 +79,7 @@ namespace BiWell.Payment.Controllers
                             DeliveryTimeFrom = "10:00",
                             DeliveryTimeTo = "18:00",
                             Comment = "",
+                            ShippingTotal = string.Format(CultureInfo.InvariantCulture, "{0:0.00}", x.ShippingTotal),
                             Items = x.ItemsString
                         });
                     gv.DataBind();
@@ -222,6 +223,14 @@ namespace BiWell.Payment.Controllers
             deliveryParameters.DeliveryAddress = deliveryAddress;
             deliveryParameters.Recipient = recipient;
             deliveryParameters.ContactInfo = contactInfo;
+
+            var responseTotals = orderApiClient.GetTotals(orderApiClient.CreateCredentials(), deliveryParameters.OrderId);
+            if (responseTotals.Success == 0)
+            {
+                throw new InvalidOperationException(responseTotals.Message);
+            }
+
+            deliveryParameters.ShippingTotal = decimal.Parse(responseTotals.ShippingTotal, CultureInfo.InvariantCulture); 
         }
 
         private void FillItemWeights(DeliveryParameters deliveryParameters)
