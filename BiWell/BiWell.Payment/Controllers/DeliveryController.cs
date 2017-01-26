@@ -80,7 +80,7 @@ namespace BiWell.Payment.Controllers
                             DeliveryTimeTo = "18:00",
                             Comment = "",
                             ShippingTotal = string.Format(CultureInfo.InvariantCulture, "{0:0.00}", x.ShippingTotal),
-                            Items = x.ItemsString
+                            Items = x.ItemsStringWithCost
                         });
                     gv.DataBind();
                     gv.RenderControl(htw);

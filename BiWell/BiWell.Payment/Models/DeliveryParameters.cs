@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace BiWell.Payment.Models
 {
@@ -28,6 +29,20 @@ namespace BiWell.Payment.Models
             {
                 var itemsStr = new List<string>();
                 foreach (var item in Items)
+                {
+                    itemsStr.Add($"{item.ItemId}/{item.Quantity}/{string.Format(CultureInfo.InvariantCulture, "{0:0.00}", item.Cost)}");
+                }
+
+                return string.Join(",", itemsStr);
+            }
+        }
+
+        public string ItemsStringWithCost
+        {
+            get
+            {
+                var itemsStr = new List<string>();
+                foreach (var item in Items.Where(x => x.Cost > 0))
                 {
                     itemsStr.Add($"{item.ItemId}/{item.Quantity}/{string.Format(CultureInfo.InvariantCulture, "{0:0.00}", item.Cost)}");
                 }
