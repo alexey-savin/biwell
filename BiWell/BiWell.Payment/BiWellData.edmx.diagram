@@ -5,7 +5,13 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="94e1def4076d4d209df035875c582053" Name="Diagram1">
-        <EntityTypeShape EntityType="BiWellModel.ItemWeight" Width="1.625" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BiWellModel.ItemWeight" Width="1.625" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BiWellModel.log_message_type" Width="1.5" PointX="2.375" PointY="0.5" />
+        <EntityTypeShape EntityType="BiWellModel.log_record" Width="1.5" PointX="4.25" PointY="0.5" />
+        <EntityTypeShape EntityType="BiWellModel.log_source" Width="1.5" PointX="2.375" PointY="2.375" />
+        <EntityTypeShape EntityType="BiWellModel.order_payment" Width="1.5" PointX="0.5" PointY="2.375" />
+        <AssociationConnector Association="BiWellModel.FK_log_message_type" />
+        <AssociationConnector Association="BiWellModel.FK_log_source" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

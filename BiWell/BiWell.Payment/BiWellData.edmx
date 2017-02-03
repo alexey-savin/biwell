@@ -13,8 +13,76 @@
           <Property Name="Weight" Type="numeric" Precision="5" Scale="2" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <EntityType Name="log_message_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="log_record">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="message_type_id" Type="int" Nullable="false" />
+          <Property Name="source_id" Type="int" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="log_source">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="order_payment">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="amount" Type="money" />
+        </EntityType>
+        <Association Name="FK_log_message_type">
+          <End Role="log_message_type" Type="Self.log_message_type" Multiplicity="1" />
+          <End Role="log_record" Type="Self.log_record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="log_message_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="log_record">
+              <PropertyRef Name="message_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_log_source">
+          <End Role="log_source" Type="Self.log_source" Multiplicity="1" />
+          <End Role="log_record" Type="Self.log_record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="log_source">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="log_record">
+              <PropertyRef Name="source_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="BiWellModelStoreContainer">
           <EntitySet Name="ItemWeight" EntityType="Self.ItemWeight" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="log_message_type" EntityType="Self.log_message_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="log_record" EntityType="Self.log_record" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="log_source" EntityType="Self.log_source" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_payment" EntityType="Self.order_payment" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_log_message_type" Association="Self.FK_log_message_type">
+            <End Role="log_message_type" EntitySet="log_message_type" />
+            <End Role="log_record" EntitySet="log_record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_log_source" Association="Self.FK_log_source">
+            <End Role="log_source" EntitySet="log_source" />
+            <End Role="log_record" EntitySet="log_record" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -30,7 +98,79 @@
         </EntityType>
         <EntityContainer Name="BiWellEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ItemWeights" EntityType="Self.ItemWeight" />
+          <EntitySet Name="log_message_type" EntityType="BiWellModel.log_message_type" />
+          <EntitySet Name="log_record" EntityType="BiWellModel.log_record" />
+          <EntitySet Name="log_source" EntityType="BiWellModel.log_source" />
+          <EntitySet Name="order_payment" EntityType="BiWellModel.order_payment" />
+          <AssociationSet Name="FK_log_message_type" Association="BiWellModel.FK_log_message_type">
+            <End Role="log_message_type" EntitySet="log_message_type" />
+            <End Role="log_record" EntitySet="log_record" />
+          </AssociationSet>
+          <AssociationSet Name="FK_log_source" Association="BiWellModel.FK_log_source">
+            <End Role="log_source" EntitySet="log_source" />
+            <End Role="log_record" EntitySet="log_record" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="log_message_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="log_record" Relationship="BiWellModel.FK_log_message_type" FromRole="log_message_type" ToRole="log_record" />
+        </EntityType>
+        <EntityType Name="log_record">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="message_type_id" Type="Int32" Nullable="false" />
+          <Property Name="source_id" Type="Int32" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="log_message_type" Relationship="BiWellModel.FK_log_message_type" FromRole="log_record" ToRole="log_message_type" />
+          <NavigationProperty Name="log_source" Relationship="BiWellModel.FK_log_source" FromRole="log_record" ToRole="log_source" />
+        </EntityType>
+        <EntityType Name="log_source">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="log_record" Relationship="BiWellModel.FK_log_source" FromRole="log_source" ToRole="log_record" />
+        </EntityType>
+        <EntityType Name="order_payment">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="amount" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <Association Name="FK_log_message_type">
+          <End Type="BiWellModel.log_message_type" Role="log_message_type" Multiplicity="1" />
+          <End Type="BiWellModel.log_record" Role="log_record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="log_message_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="log_record">
+              <PropertyRef Name="message_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_log_source">
+          <End Type="BiWellModel.log_source" Role="log_source" Multiplicity="1" />
+          <End Type="BiWellModel.log_record" Role="log_record" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="log_source">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="log_record">
+              <PropertyRef Name="source_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43,6 +183,42 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="log_message_type">
+            <EntityTypeMapping TypeName="BiWellModel.log_message_type">
+              <MappingFragment StoreEntitySet="log_message_type">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="log_record">
+            <EntityTypeMapping TypeName="BiWellModel.log_record">
+              <MappingFragment StoreEntitySet="log_record">
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="source_id" ColumnName="source_id" />
+                <ScalarProperty Name="message_type_id" ColumnName="message_type_id" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="log_source">
+            <EntityTypeMapping TypeName="BiWellModel.log_source">
+              <MappingFragment StoreEntitySet="log_source">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_payment">
+            <EntityTypeMapping TypeName="BiWellModel.order_payment">
+              <MappingFragment StoreEntitySet="order_payment">
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -60,7 +236,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

@@ -235,17 +235,18 @@ namespace BiWell.Payment.Controllers
 
         private void FillItemWeights(DeliveryParameters deliveryParameters)
         {
-            BiWellEntities db = new BiWellEntities();
-
-            foreach (var item in deliveryParameters.Items)
+            using (BiWellEntities context = new BiWellEntities())
             {
-                var itemWeight = db.ItemWeights.Find(item.ItemId);
-                if (itemWeight == null)
+                foreach (var item in deliveryParameters.Items)
                 {
-                    throw new InvalidOperationException($"Весовая характеристика не найдена для {item.ItemId}: {item.Name}");
-                }
+                    var itemWeight = context.ItemWeights.Find(item.ItemId);
+                    if (itemWeight == null)
+                    {
+                        throw new InvalidOperationException($"Весовая характеристика не найдена для {item.ItemId}: {item.Name}");
+                    }
 
-                item.Weight = itemWeight.Weight;
+                    item.Weight = itemWeight.Weight;
+                }
             }
         }
     }

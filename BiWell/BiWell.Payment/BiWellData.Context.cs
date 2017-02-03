@@ -26,5 +26,9 @@ namespace BiWell.Payment
         }
     
         public virtual DbSet<ItemWeight> ItemWeights { get; set; }
+        public virtual DbSet<log_message_type> log_message_type { get; set; }
+        public virtual DbSet<log_record> log_record { get; set; }
+        public virtual DbSet<log_source> log_source { get; set; }
+        public virtual DbSet<order_payment> order_payment { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using BiWell.Payment.Interfaces;
 using BiWell.Payment.Models;
 using System.Linq;
+using System.Globalization;
 
 namespace BiWell.Payment.Implementation
 {
@@ -65,6 +66,19 @@ namespace BiWell.Payment.Implementation
                             if (currentStatus == OrderStatus.Entered)
                             {
                                 orderApiClient.SetStatusPosted(orderApiCred, orderId, 0);
+
+                                using (BiWellEntities context = new BiWellEntities())
+                                {
+                                    order_payment payment = new order_payment
+                                    {
+                                        order_id = orderId,
+                                        amount = decimal.Parse(data.mnt_amount, CultureInfo.InvariantCulture),
+                                        created_at = DateTime.UtcNow
+                                    };
+
+                                    context.order_payment.Add(payment);
+                                    context.SaveChanges();
+                                }
                             }
                         }
                     }
