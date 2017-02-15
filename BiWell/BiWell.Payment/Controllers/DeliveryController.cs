@@ -63,7 +63,7 @@ namespace BiWell.Payment.Controllers
                         {
                             OrderId = x.OrderId,
                             FIO = x.Recipient.FullName,
-                            Phone = x.ContactInfo.Phone.Substring(x.ContactInfo.Phone.Length - 10),
+                            Phone = x.ContactInfo.FormattedPhone,
                             Phone2 = "",
                             Email = x.Recipient.Email,
                             IssueType = 151,

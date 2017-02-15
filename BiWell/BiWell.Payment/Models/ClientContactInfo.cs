@@ -11,5 +11,7 @@ namespace BiWell.Payment.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+
+        public string FormattedPhone => Phone.Length > 10 ? Phone.Substring(Phone.Length - 10) : Phone;
     }
 }
