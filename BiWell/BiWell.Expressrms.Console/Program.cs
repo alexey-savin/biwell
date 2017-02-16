@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using RestSharp.Authenticators;
 using RestSharp.Serializers;
+using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Linq;
 using static System.Console;
@@ -95,15 +96,21 @@ namespace BiWell.Expressrms.Console
             docXml.LoadXml(doc.ToString());
 
             var request = new RestRequest("api/PVZ", Method.POST);
+            //request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
             request.RequestFormat = DataFormat.Xml;
             request.XmlSerializer = new DotNetXmlSerializer();
             request.AddXmlBody(docXml);
 
-            var x = _restClient.Execute(request);
+            var response = _restClient.Execute<Pvz>(request);
 
             WriteLine();
-            WriteLine("server response:");
-            WriteLine(x.Content);
+            //WriteLine("server response:");
+            //WriteLine(response.Content);
+
+            foreach (var point in response.Data.Points)
+            {
+                WriteLine($"{point.Code} - {point.Address}");
+            }
         }
     }
 }
