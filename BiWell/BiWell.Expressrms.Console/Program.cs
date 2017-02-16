@@ -9,21 +9,27 @@ namespace BiWell.Expressrms.Console
 {
     class Program
     {
+        private static readonly RestClient _restClient = new RestClient("http://agregator.postrussia.com");
+
         static void Main(string[] args)
         {
-            string baseUrl = "http://agregator.postrussia.com";
+            //CreateTestOrder();
+            GetPvzList();
 
-            var client = new RestClient(baseUrl);
+            ReadKey();
+        }
 
-            XDocument doc = new XDocument(
+        private static void CreateTestOrder()
+        {
+            var doc = new XDocument(
                 new XDeclaration("1.0", "utf-8", null),
-                new XElement("root",
+                new XElement("neworder",
                     new XElement("auth",
                         new XAttribute("login", "biwellrus"),
                         new XAttribute("password", "ppV5pIhSRT")),
                     new XElement("orders",
                         new XElement("order",
-                            new XAttribute("number", "X03"),
+                            new XAttribute("number", "X04"),
                             new XAttribute("deliveryPlannedMoment", "2017-01-25"),
                             new XAttribute("fio", "BiWell test client"),
                             new XAttribute("phone", "9207501122"),
@@ -64,13 +70,40 @@ namespace BiWell.Expressrms.Console
             request.XmlSerializer = new DotNetXmlSerializer();
             request.AddXmlBody(docXml);
 
-            var x = client.Execute(request);
+            var x = _restClient.Execute(request);
 
             WriteLine();
             WriteLine("server response:");
             WriteLine(x.Content);
+        }
 
-            ReadKey();
+        private static void GetPvzList()
+        {
+            var doc = new XDocument(
+                new XDeclaration("1.0", "utf-8", null),
+                new XElement("PVZ",
+                    new XElement("auth",
+                        new XAttribute("login", "biwellrus"),
+                        new XAttribute("password", "ppV5pIhSRT")),
+                    new XElement("PointDelivery",
+                            new XAttribute("deliveryService", "SDK"),
+                            new XAttribute("city", "Санкт-Петербург"))));
+
+            WriteLine(doc.ToString());
+
+            XmlDocument docXml = new XmlDocument();
+            docXml.LoadXml(doc.ToString());
+
+            var request = new RestRequest("api/PVZ", Method.POST);
+            request.RequestFormat = DataFormat.Xml;
+            request.XmlSerializer = new DotNetXmlSerializer();
+            request.AddXmlBody(docXml);
+
+            var x = _restClient.Execute(request);
+
+            WriteLine();
+            WriteLine("server response:");
+            WriteLine(x.Content);
         }
     }
 }
