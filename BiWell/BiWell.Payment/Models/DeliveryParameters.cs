@@ -56,5 +56,28 @@ namespace BiWell.Payment.Models
         public int SelfPickupShipMethodId => Properties.Settings.Default.Freedom_SelfPickupShipMethodId;
 
         public bool IsPosted => Status == "Posted";
+
+        public string DeliveryCode
+        {
+            get
+            {
+                var result = string.Empty;
+
+                if (ShipMethod.StartsWith("Пункт выдачи") || ShipMethod.StartsWith("Постамат"))
+                {
+                    result = "104.1.0";
+                }
+                else if (ShipMethod.StartsWith("Курьер"))
+                {
+                    result = "104.2.1";
+                }
+                else if (ShipMethod.StartsWith("Почта"))
+                {
+                    result = "112.4.1";
+                }
+
+                return result;
+            }
+        }
     }
 }

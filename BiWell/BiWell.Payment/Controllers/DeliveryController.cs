@@ -72,7 +72,7 @@ namespace BiWell.Payment.Controllers
                             BalanceDue = "0.00",
                             Weight = x.Items.Sum(di => di.Weight * di.Quantity) * 1000,
                             PlacesQty = 1,
-                            DeliveryCode = "120.2.1",
+                            DeliveryCode = x.DeliveryCode,
                             PostIndex = x.DeliveryAddress.PostIndex,
                             Region = x.DeliveryAddress.Place,
                             Address = x.DeliveryAddress.Street_1,
