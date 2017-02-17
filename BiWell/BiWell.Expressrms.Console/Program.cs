@@ -96,7 +96,6 @@ namespace BiWell.Expressrms.Console
             docXml.LoadXml(doc.ToString());
 
             var request = new RestRequest("api/PVZ", Method.POST);
-            //request.OnBeforeDeserialization = resp => { resp.ContentType = "application/json"; };
             request.RequestFormat = DataFormat.Xml;
             request.XmlSerializer = new DotNetXmlSerializer();
             request.AddXmlBody(docXml);

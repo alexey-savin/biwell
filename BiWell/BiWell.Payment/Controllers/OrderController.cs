@@ -71,7 +71,9 @@ namespace BiWell.Payment.Controllers
                     throw new InvalidOperationException(responseTotals.Message);
                 }
 
-                orderDetails.Amount = decimal.Parse(responseTotals.BalanceDue, CultureInfo.InvariantCulture);
+                var balanceDue = decimal.Parse(responseTotals.BalanceDue, CultureInfo.InvariantCulture);
+                balanceDue = Math.Floor(balanceDue * 100) / 100;
+                orderDetails.Amount = balanceDue;
             }
             catch (Exception ex)
             {
