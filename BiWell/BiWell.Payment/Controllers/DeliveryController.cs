@@ -70,7 +70,7 @@ namespace BiWell.Payment.Controllers
                             PaymentType = 0,
                             PayCost = string.Format(CultureInfo.InvariantCulture, "{0:0.00}", x.Items.Sum(di => di.PayCost * di.Quantity)),
                             BalanceDue = "0.00",
-                            Weight = x.Items.Sum(di => di.Weight) * 1000,
+                            Weight = x.Items.Sum(di => di.Weight * di.Quantity) * 1000,
                             PlacesQty = 1,
                             DeliveryCode = x.DeliveryCode,
                             PostIndex = x.DeliveryAddress.PostIndex,
