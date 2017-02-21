@@ -102,7 +102,7 @@ namespace BiWell.Payment.Controllers
             requestOrderListRecent.Credentials = orderApiCred;
             requestOrderListRecent.PeriodType = Properties.Settings.Default.Freedom_RecentPeriodType;
             requestOrderListRecent.PeriodLength = Properties.Settings.Default.Freedom_RecentPeriodLength;
-            requestOrderListRecent.EvalDateLastModified = false;
+            requestOrderListRecent.EvalDateLastModified = true;
             var responseOrderList = orderApiClient.GetOrderListRecent(requestOrderListRecent);
 
             foreach (var orderList in responseOrderList.GetOrderListRecentResult)
