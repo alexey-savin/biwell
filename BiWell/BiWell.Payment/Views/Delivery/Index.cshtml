@@ -19,9 +19,10 @@
         <table class="table table-striped table-condensed table-bordered">
             <tr>
                 <th class="text-center">Заказ</th>
-                <th class="text-center">Дата заказа</th>
-                <th class="text-center">ФИО получателя</th>
+                <th class="text-center">Создан</th>
+                <th class="text-center">Обновлен</th>
                 <th class="text-center">Статус</th>
+                <th class="text-center">ФИО получателя</th>
                 <th class="text-center">Способ доставки</th>
             </tr>
 
@@ -33,8 +34,9 @@
                 <tr>
                     <td class="text-left">@item.OrderId</td>
                     <td class="text-left">@item.CreatedAt</td>
-                    <td class="text-left">@item.Recipient.FullName</td>
+                    <td class="text-left">@item.ModifiedAt</td>
                     <td class="text-left">@item.Status</td>
+                    <td class="text-left">@item.Recipient.FullName</td>
                     <td class="text-left">@item.ShipMethod</td>
                 </tr>
             }

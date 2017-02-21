@@ -110,7 +110,8 @@ namespace BiWell.Payment.Controllers
                 DeliveryParameters orderToDelivery = new DeliveryParameters
                 {
                     OrderId = orderList.OrderID,
-                    CreatedAt = orderList.CreatedDate
+                    CreatedAt = orderList.CreatedDate,
+                    ModifiedAt = orderList.LastModifiedDate
                 };
 
                 FillFromFreedomHeader(orderToDelivery);
