@@ -148,5 +148,14 @@ namespace BiWell.Payment.Properties {
                 return ((int)(this["Freedom_RecentPeriodLength"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("699BW")]
+        public string Freedom_DeliveryItemId {
+            get {
+                return ((string)(this["Freedom_DeliveryItemId"]));
+            }
+        }
     }
 }

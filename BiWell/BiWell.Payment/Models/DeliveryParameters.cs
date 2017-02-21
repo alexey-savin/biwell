@@ -27,12 +27,14 @@ namespace BiWell.Payment.Models
         {
             get
             {
-                var startKitItems = Properties.Settings.Default.Freedom_StartKitItemId.Split(',');
+                // exclude start kits and delivery
+                var excludeItems = Properties.Settings.Default.Freedom_StartKitItemId.Split(',').ToList();
+                excludeItems.AddRange(Properties.Settings.Default.Freedom_DeliveryItemId.Split(','));
 
                 var itemsStr = new List<string>();
                 foreach (var item in Items)
                 {
-                    if (!startKitItems.Contains(item.ItemId))
+                    if (!excludeItems.Contains(item.ItemId))
                     {
                         itemsStr.Add($"{item.ItemId}/{item.Quantity}/{string.Format(CultureInfo.InvariantCulture, "{0:0.00}", item.Cost)}");
                     }
