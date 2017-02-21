@@ -124,15 +124,6 @@ namespace BiWell.Payment.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("2")]
-        public int Freedom_RecentPeriodLength {
-            get {
-                return ((int)(this["Freedom_RecentPeriodLength"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("2016-12-01")]
         public global::System.DateTime Freedom_StartKitCheckDateFrom {
             get {
@@ -146,6 +137,15 @@ namespace BiWell.Payment.Properties {
         public bool Freedom_StartKitCheckEnabled {
             get {
                 return ((bool)(this["Freedom_StartKitCheckEnabled"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int Freedom_RecentPeriodLength {
+            get {
+                return ((int)(this["Freedom_RecentPeriodLength"]));
             }
         }
     }

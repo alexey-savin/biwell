@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiWell.Payment", "BiWell.Pa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiWell.Expressrms.Console", "BiWell.Expressrms.Console\BiWell.Expressrms.Console.csproj", "{BEA75F47-4668-42EA-ACFB-80357065FB70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiWell.OrderLoader", "BiWell.OrderLoader\BiWell.OrderLoader.csproj", "{7D7DF8E9-F13A-4510-B7EA-BF0964916D09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{BEA75F47-4668-42EA-ACFB-80357065FB70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEA75F47-4668-42EA-ACFB-80357065FB70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEA75F47-4668-42EA-ACFB-80357065FB70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D7DF8E9-F13A-4510-B7EA-BF0964916D09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D7DF8E9-F13A-4510-B7EA-BF0964916D09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D7DF8E9-F13A-4510-B7EA-BF0964916D09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D7DF8E9-F13A-4510-B7EA-BF0964916D09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,18 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="BiWell.OrderLoader.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ByDesignApiUser" Type="System.String" Scope="User">
+      <Value Profile="(Default)">AlexeyInkuev</Value>
+    </Setting>
+    <Setting Name="ByDesignApiPassword" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Moll35$#</Value>
+    </Setting>
+    <Setting Name="Freedom_RecentPeriodType" Type="System.String" Scope="User">
+      <Value Profile="(Default)">day</Value>
+    </Setting>
+    <Setting Name="Freedom_RecentPeriodLength" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
