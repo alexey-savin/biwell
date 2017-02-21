@@ -151,7 +151,7 @@ namespace BiWell.Payment.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("699BW")]
+        [global::System.Configuration.DefaultSettingValueAttribute("696BW,697BW,698BW,699BW")]
         public string Freedom_DeliveryItemId {
             get {
                 return ((string)(this["Freedom_DeliveryItemId"]));
