@@ -156,14 +156,18 @@ namespace BiWell.Payment.Controllers
             List<DeliveryItem> deliveryItems = new List<DeliveryItem>();
             foreach (var responseItem in orderDetailsResponse.OrderDetailsResponse)
             {
-                deliveryItems.Add(new DeliveryItem
+                DeliveryItem deliveryItem = new DeliveryItem
                 {
                     ItemId = responseItem.ProductID,
                     Name = responseItem.Description,
                     Quantity = responseItem.Quantity,
                     Cost = decimal.Parse(responseItem.TaxableAmount, CultureInfo.InvariantCulture),
                     PayCost = decimal.Parse(responseItem.TaxableAmount, CultureInfo.InvariantCulture)
-                });
+                };
+
+                FillItemCosts(deliveryItem);
+
+                deliveryItems.Add(deliveryItem);
             }
 
             var responseOrderInfo = orderApiClient.GetOrderInfo_V2(orderApiClient.CreateCredentials(), deliveryParameters.OrderId);
@@ -248,6 +252,20 @@ namespace BiWell.Payment.Controllers
 
                     item.Weight = itemWeight.Weight;
                 }
+            }
+        }
+
+        private void FillItemCosts(DeliveryItem deliveryItem)
+        {
+            var onlineApiClient = ByDesignAPIHelper.CreateOnlineAPIClient();
+
+            var getInventoryReturn = onlineApiClient.GetInventory_SingleItem(
+                onlineApiClient.CreateCredentials(), "1", null, deliveryItem.ItemId, "Wholesale", 0).FirstOrDefault();
+
+            if (getInventoryReturn != null)
+            {
+                deliveryItem.Cost = Convert.ToDecimal(getInventoryReturn.Price);
+                deliveryItem.PayCost = deliveryItem.Cost;
             }
         }
     }

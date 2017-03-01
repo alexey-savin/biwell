@@ -8,7 +8,8 @@ namespace BiWell.OrderLoader
         {
             ITask[] tasks =
             {
-                new LoadCreatedOrdersTask()
+                new LoadCreatedOrdersTask(),
+                new LoadUpdatedOrdersTask()
             };
 
             foreach (var task in tasks)
