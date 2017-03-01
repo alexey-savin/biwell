@@ -41,12 +41,15 @@ namespace BiWell.OrderLoader.Tasks
                             throw new InvalidOperationException(responseOrderInfo.Message);
                         }
 
-                        dbOrder.status = responseOrderInfo.Status;
-                        dbOrder.modified_at = order.LastModifiedDate;
-
-                        if (dbOrder.modified_at == DateTime.MinValue)
+                        if (!dbOrder.status.Equals(responseOrderInfo.Status))
                         {
-                            dbOrder.modified_at = null;
+                            dbOrder.status = responseOrderInfo.Status;
+                            dbOrder.modified_at = order.LastModifiedDate;
+
+                            if (dbOrder.modified_at == DateTime.MinValue)
+                            {
+                                dbOrder.modified_at = null;
+                            }
                         }
                     }
                 }
