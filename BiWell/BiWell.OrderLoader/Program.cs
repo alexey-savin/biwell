@@ -8,6 +8,7 @@ namespace BiWell.OrderLoader
         {
             ITask[] tasks =
             {
+                new UpdateShippingMethodsTask(),
                 new LoadCreatedOrdersTask(),
                 new LoadUpdatedOrdersTask()
             };

@@ -26,5 +26,6 @@ namespace BiWell.OrderLoader
         }
     
         public virtual DbSet<order_table> order_table { get; set; }
+        public virtual DbSet<shipping_method> shipping_method { get; set; }
     }
 }

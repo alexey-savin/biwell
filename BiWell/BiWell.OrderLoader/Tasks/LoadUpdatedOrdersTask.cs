@@ -1,10 +1,6 @@
 ﻿using BiWell.OrderLoader.ByDesignOrderApi;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BiWell.OrderLoader.Tasks
 {
@@ -18,8 +14,6 @@ namespace BiWell.OrderLoader.Tasks
             cred.Username = Properties.Settings.Default.ByDesignApiUser;
             cred.Password = Properties.Settings.Default.ByDesignApiPassword;
 
-            var requestOrderListRecent = new GetOrderListRecentRequest();
-            requestOrderListRecent.Credentials = cred;
             var responseOrderList = orderApiClient.GetOrderListRecent(
                 cred,
                 Properties.Settings.Default.Freedom_RecentPeriodType,
@@ -28,10 +22,10 @@ namespace BiWell.OrderLoader.Tasks
 
             using (var dbContext = new BiWellEntities())
             {
+                dbContext.Database.Log = s => Debug.WriteLine(s);
+
                 foreach (var order in responseOrderList)
                 {
-                    dbContext.Database.Log = s => Debug.WriteLine(s);
-
                     var dbOrder = dbContext.order_table.Find(order.OrderID);
                     if (dbOrder != null)
                     {
@@ -51,6 +45,8 @@ namespace BiWell.OrderLoader.Tasks
                                 dbOrder.modified_at = null;
                             }
                         }
+
+                        dbOrder.shipping_method_id = responseOrderInfo.ShipMethodID;
                     }
                 }
 

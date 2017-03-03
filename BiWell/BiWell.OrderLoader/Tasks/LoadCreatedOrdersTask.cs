@@ -14,8 +14,6 @@ namespace BiWell.OrderLoader.Tasks
             cred.Username = Properties.Settings.Default.ByDesignApiUser;
             cred.Password = Properties.Settings.Default.ByDesignApiPassword;
 
-            var requestOrderListRecent = new GetOrderListRecentRequest();
-            requestOrderListRecent.Credentials = cred;
             var responseOrderList = orderApiClient.GetOrderListRecent(
                 cred,
                 Properties.Settings.Default.Freedom_RecentPeriodType,
@@ -24,10 +22,10 @@ namespace BiWell.OrderLoader.Tasks
 
             using (var dbContext = new BiWellEntities())
             {
+                dbContext.Database.Log = s => Debug.WriteLine(s);
+
                 foreach (var order in responseOrderList)
                 {
-                    dbContext.Database.Log = s => Debug.WriteLine(s);
-
                     var dbOrder = dbContext.order_table.Find(order.OrderID);
                     if (dbOrder == null)
                     {
@@ -40,9 +38,10 @@ namespace BiWell.OrderLoader.Tasks
                         dbOrder = new order_table
                         {
                             order_id = order.OrderID,
-                            status = responseOrderInfo.Status,
                             created_at = order.CreatedDate,
-                            modified_at = order.LastModifiedDate
+                            modified_at = order.LastModifiedDate,
+                            status = responseOrderInfo.Status,
+                            shipping_method_id = responseOrderInfo.ShipMethodID
                         };
 
                         if (dbOrder.modified_at == DateTime.MinValue)

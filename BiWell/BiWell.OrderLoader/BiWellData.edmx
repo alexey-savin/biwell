@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BiWellModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BiWellModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="order_table">
           <Key>
             <PropertyRef Name="order_id" />
@@ -13,12 +13,20 @@
           <Property Name="status" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="created_at" Type="datetime" Nullable="false" />
           <Property Name="modified_at" Type="datetime" />
+          <Property Name="shipping_method_id" Type="int" />
+        </EntityType>
+        <EntityType Name="shipping_method">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityContainer Name="BiWellModelStoreContainer">
           <EntitySet Name="order_table" EntityType="Self.order_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shipping_method" EntityType="Self.shipping_method" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BiWellModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -30,10 +38,19 @@
           <Property Name="status" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="modified_at" Type="DateTime" Precision="3" />
+          <Property Name="shipping_method_id" Type="Int32" />
         </EntityType>
         <EntityContainer Name="BiWellEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="order_table" EntityType="Self.order_table" />
+          <EntitySet Name="shipping_method" EntityType="BiWellModel.shipping_method" />
         </EntityContainer>
+        <EntityType Name="shipping_method">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -43,10 +60,19 @@
           <EntitySetMapping Name="order_table">
             <EntityTypeMapping TypeName="BiWellModel.order_table">
               <MappingFragment StoreEntitySet="order_table">
+                <ScalarProperty Name="shipping_method_id" ColumnName="shipping_method_id" />
                 <ScalarProperty Name="order_id" ColumnName="order_id" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="created_at" ColumnName="created_at" />
                 <ScalarProperty Name="modified_at" ColumnName="modified_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shipping_method">
+            <EntityTypeMapping TypeName="BiWellModel.shipping_method">
+              <MappingFragment StoreEntitySet="shipping_method">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

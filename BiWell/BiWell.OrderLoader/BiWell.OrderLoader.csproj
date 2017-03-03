@@ -86,8 +86,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="shipping_method.cs">
+      <DependentUpon>BiWellData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Tasks\LoadCreatedOrdersTask.cs" />
     <Compile Include="Tasks\LoadUpdatedOrdersTask.cs" />
+    <Compile Include="Tasks\UpdateShippingMethodsTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

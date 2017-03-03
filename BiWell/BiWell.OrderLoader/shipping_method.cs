@@ -12,12 +12,9 @@ namespace BiWell.OrderLoader
     using System;
     using System.Collections.Generic;
     
-    public partial class order_table
+    public partial class shipping_method
     {
-        public int order_id { get; set; }
-        public string status { get; set; }
-        public System.DateTime created_at { get; set; }
-        public Nullable<System.DateTime> modified_at { get; set; }
-        public Nullable<int> shipping_method_id { get; set; }
+        public int id { get; set; }
+        public string description { get; set; }
     }
 }
