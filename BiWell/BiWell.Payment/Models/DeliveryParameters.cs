@@ -13,7 +13,7 @@ namespace BiWell.Payment.Models
 
         public int OrderId { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime ModifiedAt { get; set; }
+        public DateTime? ModifiedAt { get; set; }
         public string Status { get; set; }
         public int ShipMethodId { get; set; }
         public string ShipMethod { get; set; }
@@ -24,24 +24,14 @@ namespace BiWell.Payment.Models
         public DeliveryRecipient Recipient { get; set; }
         public ClientContactInfo ContactInfo { get; set; }
 
-        public string ItemsString
+        public DeliveryItem[] ActualItems => Items.Where(x => !ItemsToExclude.Contains(x.ItemId)).ToArray();
+
+        public string ActualItemsString
         {
             get
             {
-                // exclude start kits and delivery
-                var excludeItems = Properties.Settings.Default.Freedom_StartKitItemId.Split(',').ToList();
-                excludeItems.AddRange(Properties.Settings.Default.Freedom_DeliveryItemId.Split(','));
-
-                var itemsStr = new List<string>();
-                foreach (var item in Items)
-                {
-                    if (!excludeItems.Contains(item.ItemId))
-                    {
-                        itemsStr.Add($"{item.ItemId}/{item.Quantity}/{string.Format(CultureInfo.InvariantCulture, "{0:0.00}", item.Cost)}");
-                    }
-                }
-
-                return string.Join(",", itemsStr);
+                return string.Join(",", 
+                    ActualItems.Select(x => $"{x.ItemId}/{x.Quantity}/{string.Format(CultureInfo.InvariantCulture, "{0:0.00}", x.Cost)}"));
             }
         }
 
@@ -85,6 +75,18 @@ namespace BiWell.Payment.Models
                 }
 
                 return result;
+            }
+        }
+
+        private List<string> ItemsToExclude
+        {
+            get
+            {
+                // exclude start kits and delivery
+                var excludeItems = Properties.Settings.Default.Freedom_StartKitItemId.Split(',').ToList();
+                excludeItems.AddRange(Properties.Settings.Default.Freedom_DeliveryItemId.Split(','));
+
+                return excludeItems;
             }
         }
     }

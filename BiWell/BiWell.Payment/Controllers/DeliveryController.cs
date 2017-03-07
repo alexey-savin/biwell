@@ -3,11 +3,11 @@ using BiWell.Payment.Helpers;
 using BiWell.Payment.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -23,7 +23,7 @@ namespace BiWell.Payment.Controllers
 
             try
             {
-                ordersToDelivery = ReadOrdersToDelivery();
+                ordersToDelivery = ReadOrdersToDeliveryEx();
             }
             catch (Exception ex)
             {
@@ -42,7 +42,7 @@ namespace BiWell.Payment.Controllers
 
         private void ExportExcelAsHtml()
         {
-            List<DeliveryParameters> ordersToDelivery = ReadOrdersToDelivery();
+            List<DeliveryParameters> ordersToDelivery = ReadOrdersToDeliveryEx();
 
             Response.Clear();
             Response.AddHeader("content-disposition", $"attachment;filename=Delivery_{DateTime.Today.ToShortDateString()}.xls");
@@ -68,7 +68,7 @@ namespace BiWell.Payment.Controllers
                             Email = x.Recipient.Email,
                             IssueType = 151,
                             PaymentType = 0,
-                            PayCost = string.Format(CultureInfo.InvariantCulture, "{0:0.00}", x.Items.Sum(di => di.PayCost * di.Quantity)),
+                            PayCost = string.Format(CultureInfo.InvariantCulture, "{0:0.00}", x.ActualItems.Sum(di => di.PayCost * di.Quantity)),
                             BalanceDue = "0.00",
                             Weight = x.Items.Sum(di => di.Weight * di.Quantity) * 1000,
                             PlacesQty = 1,
@@ -80,7 +80,7 @@ namespace BiWell.Payment.Controllers
                             DeliveryTimeTo = "18:00",
                             Comment = "",
                             ShippingTotal = string.Format(CultureInfo.InvariantCulture, "{0:0.00}", x.ShippingTotal),
-                            Items = x.ItemsString
+                            Items = x.ActualItemsString
                         });
                     gv.DataBind();
                     gv.RenderControl(htw);
@@ -89,6 +89,52 @@ namespace BiWell.Payment.Controllers
             }
             Response.Flush();
             Response.End();
+        }
+
+        private List<DeliveryParameters> ReadOrdersToDeliveryEx()
+        {
+            //Stopwatch stopWatch = new Stopwatch();
+            //stopWatch.Start();
+
+            var result = new List<DeliveryParameters>();
+
+            using (var context = new BiWellEntities())
+            {
+                context.Database.Log = s => Debug.WriteLine(s);
+
+                var dateFrom = DateTime.Today.AddDays(-Properties.Settings.Default.Freedom_RecentPeriodLength);
+
+                var dbOrders = context.order_table
+                    .Where(o => o.status == "Posted")
+                    .Where(o => o.shipping_method_id != null)
+                    .Where(o => o.shipping_method_id != Properties.Settings.Default.Freedom_SelfPickupShipMethodId)
+                    .Where(o => o.modified_at >= dateFrom)
+                    .OrderByDescending(o => o.modified_at);
+
+                foreach (var dbOrder in dbOrders)
+                {
+                    var orderToDelivery = new DeliveryParameters
+                    {
+                        OrderId = dbOrder.order_id,
+                        CreatedAt = dbOrder.created_at,
+                        ModifiedAt = dbOrder.modified_at
+                    };
+
+                    orderToDelivery.Status = dbOrder.status;
+                    orderToDelivery.ShipMethodId = dbOrder.shipping_method_id.Value;
+                    orderToDelivery.ShipMethod = context.shipping_method.FirstOrDefault(m => m.id == dbOrder.shipping_method_id.Value)?.description;
+
+                    FillFromFreedomDetails(orderToDelivery);
+                    FillItemWeights(orderToDelivery);
+
+                    result.Add(orderToDelivery);
+                }
+            }
+
+            //stopWatch.Stop();
+            //TimeSpan ts = stopWatch.Elapsed;
+
+            return result;
         }
 
         private List<DeliveryParameters> ReadOrdersToDelivery()
@@ -107,7 +153,7 @@ namespace BiWell.Payment.Controllers
 
             foreach (var orderList in responseOrderList.GetOrderListRecentResult)
             {
-                DeliveryParameters orderToDelivery = new DeliveryParameters
+                var orderToDelivery = new DeliveryParameters
                 {
                     OrderId = orderList.OrderID,
                     CreatedAt = orderList.CreatedDate,
@@ -240,7 +286,7 @@ namespace BiWell.Payment.Controllers
 
         private void FillItemWeights(DeliveryParameters deliveryParameters)
         {
-            using (BiWellEntities context = new BiWellEntities())
+            using (var context = new BiWellEntities())
             {
                 foreach (var item in deliveryParameters.Items)
                 {

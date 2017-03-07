@@ -30,5 +30,7 @@ namespace BiWell.Payment
         public virtual DbSet<log_record> log_record { get; set; }
         public virtual DbSet<log_source> log_source { get; set; }
         public virtual DbSet<order_payment> order_payment { get; set; }
+        public virtual DbSet<order_table> order_table { get; set; }
+        public virtual DbSet<shipping_method> shipping_method { get; set; }
     }
 }

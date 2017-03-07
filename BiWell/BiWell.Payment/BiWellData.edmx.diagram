@@ -12,6 +12,8 @@
         <EntityTypeShape EntityType="BiWellModel.order_payment" Width="1.5" PointX="0.5" PointY="2.375" />
         <AssociationConnector Association="BiWellModel.FK_log_message_type" />
         <AssociationConnector Association="BiWellModel.FK_log_source" />
+        <EntityTypeShape EntityType="BiWellModel.order_table" Width="1.75" PointX="4.25" PointY="3.125" />
+        <EntityTypeShape EntityType="BiWellModel.shipping_method" Width="2" PointX="5.875" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

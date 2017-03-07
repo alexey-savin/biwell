@@ -45,6 +45,23 @@
           <Property Name="created_at" Type="datetime" Nullable="false" />
           <Property Name="amount" Type="money" />
         </EntityType>
+        <EntityType Name="order_table">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="created_at" Type="datetime" Nullable="false" />
+          <Property Name="modified_at" Type="datetime" />
+          <Property Name="shipping_method_id" Type="int" />
+        </EntityType>
+        <EntityType Name="shipping_method">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
         <Association Name="FK_log_message_type">
           <End Role="log_message_type" Type="Self.log_message_type" Multiplicity="1" />
           <End Role="log_record" Type="Self.log_record" Multiplicity="*" />
@@ -75,6 +92,8 @@
           <EntitySet Name="log_record" EntityType="Self.log_record" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="log_source" EntityType="Self.log_source" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="order_payment" EntityType="Self.order_payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="order_table" EntityType="Self.order_table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="shipping_method" EntityType="Self.shipping_method" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_log_message_type" Association="Self.FK_log_message_type">
             <End Role="log_message_type" EntitySet="log_message_type" />
             <End Role="log_record" EntitySet="log_record" />
@@ -110,6 +129,8 @@
             <End Role="log_source" EntitySet="log_source" />
             <End Role="log_record" EntitySet="log_record" />
           </AssociationSet>
+          <EntitySet Name="order_table" EntityType="BiWellModel.order_table" />
+          <EntitySet Name="shipping_method" EntityType="BiWellModel.shipping_method" />
         </EntityContainer>
         <EntityType Name="log_message_type">
           <Key>
@@ -171,6 +192,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="order_table">
+          <Key>
+            <PropertyRef Name="order_id" />
+          </Key>
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modified_at" Type="DateTime" Precision="3" />
+          <Property Name="shipping_method_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="shipping_method">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -219,6 +257,25 @@
                 <ScalarProperty Name="amount" ColumnName="amount" />
                 <ScalarProperty Name="created_at" ColumnName="created_at" />
                 <ScalarProperty Name="order_id" ColumnName="order_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="order_table">
+            <EntityTypeMapping TypeName="BiWellModel.order_table">
+              <MappingFragment StoreEntitySet="order_table">
+                <ScalarProperty Name="shipping_method_id" ColumnName="shipping_method_id" />
+                <ScalarProperty Name="modified_at" ColumnName="modified_at" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="shipping_method">
+            <EntityTypeMapping TypeName="BiWellModel.shipping_method">
+              <MappingFragment StoreEntitySet="shipping_method">
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
