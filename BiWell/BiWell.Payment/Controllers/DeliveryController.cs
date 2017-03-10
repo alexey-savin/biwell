@@ -102,14 +102,14 @@ namespace BiWell.Payment.Controllers
             {
                 context.Database.Log = s => Debug.WriteLine(s);
 
-                var dateFrom = DateTime.Today.AddDays(-Properties.Settings.Default.Freedom_RecentPeriodLength);
+                //var dateFrom = DateTime.Today.AddDays(-Properties.Settings.Default.Freedom_RecentPeriodLength);
 
                 var dbOrders = context.order_table
                     .Where(o => o.status == "Posted")
                     .Where(o => o.shipping_method_id != null)
                     .Where(o => o.shipping_method_id != Properties.Settings.Default.Freedom_SelfPickupShipMethodId)
-                    .Where(o => o.modified_at >= dateFrom)
-                    .OrderByDescending(o => o.modified_at);
+                    .OrderByDescending(o => o.modified_at)
+                    .Take(Properties.Settings.Default.BiWell_OrdersToDeliveryCount);
 
                 foreach (var dbOrder in dbOrders)
                 {

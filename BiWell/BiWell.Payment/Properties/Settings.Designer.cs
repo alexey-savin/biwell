@@ -97,15 +97,6 @@ namespace BiWell.Payment.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("501BW,502BW,503BW,504BW,505BW,506BW")]
-        public string Freedom_StartKitItemId {
-            get {
-                return ((string)(this["Freedom_StartKitItemId"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1")]
         public int Freedom_SelfPickupShipMethodId {
             get {
@@ -133,7 +124,26 @@ namespace BiWell.Payment.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("696BW,697BW,698BW,699BW")]
+        public string Freedom_DeliveryItemId {
+            get {
+                return ((string)(this["Freedom_DeliveryItemId"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("501BW,502BW,503BW,504BW,505BW,506BW,507BW,508BW,509BW,510BW,511BW,512BW,513BW,514" +
+            "BW,515BW,516BW")]
+        public string Freedom_StartKitItemId {
+            get {
+                return ((string)(this["Freedom_StartKitItemId"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Freedom_StartKitCheckEnabled {
             get {
                 return ((bool)(this["Freedom_StartKitCheckEnabled"]));
@@ -142,7 +152,7 @@ namespace BiWell.Payment.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        [global::System.Configuration.DefaultSettingValueAttribute("5")]
         public int Freedom_RecentPeriodLength {
             get {
                 return ((int)(this["Freedom_RecentPeriodLength"]));
@@ -151,10 +161,10 @@ namespace BiWell.Payment.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("696BW,697BW,698BW,699BW")]
-        public string Freedom_DeliveryItemId {
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int BiWell_OrdersToDeliveryCount {
             get {
-                return ((string)(this["Freedom_DeliveryItemId"]));
+                return ((int)(this["BiWell_OrdersToDeliveryCount"]));
             }
         }
     }
