@@ -34,6 +34,7 @@
                         <th class="text-center">Код товара</th>
                         <th class="text-center">Наименование</th>
                         <th class="text-center">Вес (кг)</th>
+                        <th class="text-center">Внутренняя цена</th>
                         <th class="text-center">Действия</th>
                     </tr>
 
@@ -43,6 +44,7 @@
                             <td class="text-left">@item.ItemId</td>
                             <td class="text-left">@item.Name</td>
                             <td class="text-right">@item.Weight</td>
+                            <td class="text-right">@item.InternalPrice</td>
                             <td class="text-right">
                                 @Html.ActionLink("Правка", "Edit", new { id = item.ItemId }) |
                                 @Html.ActionLink("Детали", "Details", new { id = item.ItemId }) |

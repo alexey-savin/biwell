@@ -17,5 +17,6 @@ namespace BiWell.Payment
         public string ItemId { get; set; }
         public decimal Weight { get; set; }
         public string Name { get; set; }
+        public Nullable<decimal> InternalPrice { get; set; }
     }
 }

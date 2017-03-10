@@ -12,6 +12,7 @@
           <Property Name="ItemId" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Weight" Type="numeric" Precision="5" Scale="2" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="InternalPrice" Type="money" />
         </EntityType>
         <EntityType Name="log_message_type">
           <Key>
@@ -114,6 +115,7 @@
           <Property Name="ItemId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Weight" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="InternalPrice" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityContainer Name="BiWellEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ItemWeights" EntityType="Self.ItemWeight" />
@@ -218,6 +220,7 @@
           <EntitySetMapping Name="ItemWeights">
             <EntityTypeMapping TypeName="BiWellModel.ItemWeight">
               <MappingFragment StoreEntitySet="ItemWeight">
+                <ScalarProperty Name="InternalPrice" ColumnName="InternalPrice" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ItemId" ColumnName="ItemId" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />

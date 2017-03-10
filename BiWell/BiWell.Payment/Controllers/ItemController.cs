@@ -45,7 +45,7 @@ namespace BiWell.Payment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ItemId,Name,Weight")] ItemWeight itemWeight)
+        public ActionResult Create([Bind(Include = "ItemId,Name,Weight,InternalPrice")] ItemWeight itemWeight)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +77,7 @@ namespace BiWell.Payment.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ItemId,Name,Weight")] ItemWeight itemWeight)
+        public ActionResult Edit([Bind(Include = "ItemId,Name,Weight,InternalPrice")] ItemWeight itemWeight)
         {
             if (ModelState.IsValid)
             {
@@ -111,6 +111,7 @@ namespace BiWell.Payment.Controllers
             ItemWeight itemWeight = db.ItemWeights.Find(id);
             db.ItemWeights.Remove(itemWeight);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
